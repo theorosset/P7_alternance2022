@@ -1,3 +1,21 @@
+/* selector general */
+p{
+  margin:0
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+h2{
+  font-size: 17px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 283px;
+  white-space: nowrap;
+}
+
+
 /* header */
 .header {
   display: flex;
@@ -7,7 +25,7 @@
 }
 .header img {
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: 268px;
   height: 93px;
 }
@@ -15,10 +33,47 @@
 /* section search */
 
 #search {
+ margin: auto;
+}
+.search_recipes{
   display: flex;
   justify-content: center;
 }
+.search_input{
+  display: flex;
+  justify-content: flex-start;
+  max-width: 1270px;
+  margin: auto;
+  flex-wrap: wrap;
+}
+.filter{
+  width: 223px;
+  height: 69px;
+  border-radius: 5px;
+  margin-right: 30px;
+  margin-top: 20px;
+  border: none;
+  font-size: 16px;
+  padding: 10px;
+  color: white;
+  background-image: url('../assets/vector.svg');
+  background-position: right;
+  background-repeat: no-repeat;
+  background-position: center right 10px;
 
+}
+.filter::placeholder{
+  color: white;
+}
+.filter_recipes{
+  background-color: #3282F7;
+}
+.filter_device{
+background-color: #68D9A4;
+}
+.filter_utensil{
+  background-color: #ED6454;
+}
 .search_bar {
   background-color: #e7e7e7;
   border: none;
@@ -28,9 +83,60 @@
   height: 69px;
   font-family: "Lato", sans-serif;
   padding-left: 10px;
-  background-image: url('../assets/loupe.png');
+  background-image: url('../assets/loupe.svg');
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: center right 10px;
   background-size: 44px 44px;
 }
 /* section recipes */
+#section_recipes{
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
+  max-width: 1270px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.recipe{
+  width: 380px;
+  height: 364px;
+  background-color: #E7E7E7;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.recipe-image-futur{
+  border-radius: 5px 5px 0 0;
+  height: 182px;
+  background-color: #C7BEBE;
+}
+.recipe-ingredient{
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.recipe-title-time{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ingredient{
+  font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    white-space: nowrap;
+}
+.recipe_card-bottom{
+    padding: 10px;
+}
+.recipe-logic{
+  font-size: 14px;
+  max-width: 47%;
+  margin-left: 18px;
+}
+.recipe-logic p {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

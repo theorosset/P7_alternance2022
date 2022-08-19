@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/b6ad1e69d8.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Les petits plat</title>
   </head>
   <body>
@@ -19,15 +23,38 @@
     </header>
     <main>
       <section id="search">
-        <input
-          type="search"
-          class="search_bar"
-          placeholder="Rechercher une recette"
-        />
+        <div class="search_recipes">
+          <input
+            type="search"
+            class="search_bar"
+            placeholder="Rechercher une recette"
+          />
+        </div>
+        <div class="search_input">
+          <input
+            type="search"
+            class="filter filter_recipes"
+            placeholder="Rechercher un ingrédient"
+            aria-label="Rechercher un ingrédient"
+          />
+          <input
+            type="search"
+            class="filter filter_device"
+            placeholder="Appareils"
+            aria-label="Rechercher un ingrédient"
+          />
+          <input
+            type="search"
+            class="filter filter_utensil"
+            placeholder="Ustensiles"
+            aria-label="Rechercher un ingrédient"
+          />
+        </div>
       </section>
-      <section id="recipes">
-        <div class="exemple"></div>
+      <section id="section_recipes">
+        
       </section>
     </main>
+    <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>
