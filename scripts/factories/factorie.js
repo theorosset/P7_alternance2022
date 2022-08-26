@@ -1,4 +1,6 @@
-export class article {
+
+
+export class Article {
   constructor(recipes) {
     const {
       appliance,
@@ -63,3 +65,19 @@ export class article {
     });
   }
 }
+export class List{
+  constructor(input, elementRecipe){
+    const parent = input.parentNode
+    console.log(parent);
+    const ul = document.createElement("ul")
+
+    parent.insertBefore(ul, input.nextSibling)
+    for(let i = 0; i < elementRecipe.length; i++){
+      const li = document.createElement('li');
+      li.innerText = elementRecipe[i]
+      ul.appendChild(li)
+    }
+  }
+
+}
+ 
