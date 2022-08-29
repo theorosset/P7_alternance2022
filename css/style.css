@@ -31,7 +31,6 @@ h2{
 }
 
 /* section search */
-
 #search {
  margin: auto;
 }
@@ -88,6 +87,46 @@ background-color: #68D9A4;
   background-position: center right 10px;
   background-size: 44px 44px;
 }
+.filter-list_recipes{
+  position: relative;
+}
+.filter-list_device{
+  position: relative;
+}
+.filter-list_utensil{
+  position: relative;
+}
+
+.list{
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  position: absolute;
+   z-index: 999;
+  top: 67px;
+  left: 0;
+  color: white;
+  max-width: 667px;
+  max-height: 397px;
+  padding-left: 2px; 
+  padding-right: 2px;
+  box-sizing: border-box;
+  overflow: hidden;
+    border-radius: 5px;
+}
+.list li {
+  width: 32%;
+}
+.list-blue{
+ background-color: #3282F7;
+}
+.list-red{
+ background-color: #ED6454;
+}
+.list-green{
+ background-color: #68D9A4;
+}
+
 /* section recipes */
 #section_recipes{
   margin: auto;
@@ -139,4 +178,7 @@ background-color: #68D9A4;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+.displayNone{
+  display: none;
 }
