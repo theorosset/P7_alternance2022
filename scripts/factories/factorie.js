@@ -70,7 +70,20 @@ export class List{
     const parent = input.parentNode
     console.log(parent);
     const ul = document.createElement("ul")
+    console.log(input.classList.value === 'filter filter_recipes');
+     ul.classList.add("list")
+     ul.classList.add("displayNone")
 
+    if(input.classList.value === 'filter filter_recipes'){
+      ul.classList.add("list-blue")
+    }
+    if(input.classList.value === 'filter filter_utensil'){
+      ul.classList.add("list-red")
+    }
+    if(input.classList.value === 'filter filter_device'){
+      ul.classList.add("list-green")
+    }
+    
     parent.insertBefore(ul, input.nextSibling)
     for(let i = 0; i < elementRecipe.length; i++){
       const li = document.createElement('li');
