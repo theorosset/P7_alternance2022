@@ -1,8 +1,8 @@
 /**
- * 
- * @param {inputElement} filter 
- * 
- * function for close filter if click on another filter 
+ *
+ * @param {inputElement} filter
+ *
+ * function for close filter if click on another filter
  */
 
 export function closeAllList(filter) {
@@ -21,7 +21,6 @@ export function closeAllList(filter) {
       filterIngredient.style.width = "223px";
       break;
     case "device":
-        console.log('oui');
       ingredient.classList.add("displayNone");
       ustensil.classList.add("displayNone");
       filterUstensil.style.width = "223px";
@@ -31,7 +30,7 @@ export function closeAllList(filter) {
       device.classList.add("displayNone");
       ustensil.classList.add("displayNone");
       filterDevice.style.width = "223px";
-      filterUstensil.style.width = "223px"
+      filterUstensil.style.width = "223px";
       break;
   }
 }

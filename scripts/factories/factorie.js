@@ -68,9 +68,7 @@ export class Article {
 export class List{
   constructor(input, elementRecipe){
     const parent = input.parentNode
-    console.log(parent);
     const ul = document.createElement("ul")
-    console.log(input.classList.value === 'filter filter_recipes');
      ul.classList.add("list")
      ul.classList.add("displayNone")
 

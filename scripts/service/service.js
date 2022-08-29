@@ -14,10 +14,10 @@ export async function fetchIngredientInRecipes(){
     let arrayIngredients = [];
     data.recipes.forEach(recipe => recipe.ingredients.forEach(ingredient =>  arrayIngredients.push(ingredient.ingredient)));
     arrayIngredients =  [...new Set(arrayIngredients)]
-    console.log(arrayIngredients);
     return arrayIngredients
   })
 }
+
 
 export async function fetchUstensilsInRecipes(){
   return await fetch("./recipes.json")
