@@ -1,6 +1,7 @@
 import { List } from "../factories/factorie.js";
 import { fetchUstensilsInRecipes } from "../service/service.js";
 import { closeAllList } from "./CloseFilter.js";
+import { searchByFilter } from "./filterSearch.js";
 
 // function for display list of ustensil
 export async function displayListUstensil() {
@@ -14,5 +15,6 @@ export async function displayListUstensil() {
     filterUstensils.style.width = "667px";
     closeAllList("ustensil");
   });
+    searchByFilter(".filter_utensil", ".list-red");
 }
 

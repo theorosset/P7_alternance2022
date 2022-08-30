@@ -1,6 +1,7 @@
 import { List } from "../factories/factorie.js";
 import { fetchApplianceInRecipes } from "../service/service.js";
 import { closeAllList } from "./CloseFilter.js";
+import { searchByFilter } from "./filterSearch.js";
 
 // function for display list of ingredients
 export async function displayListAppliance() {
@@ -13,4 +14,5 @@ export async function displayListAppliance() {
     filterDevice.style.width = "667px";
     closeAllList("device");
   });
+  searchByFilter(".filter_device", ".list-green");
 }
