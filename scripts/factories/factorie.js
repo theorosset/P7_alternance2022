@@ -39,7 +39,8 @@ export class Article {
 
     //set attribut
     a.setAttribute("src", "#");
-
+    article.setAttribute("data-ustensil", ustensils)
+    article.setAttribute("data-appliance",appliance)
     //set innerText
     h2.innerText = name;
     pTime.innerHTML = `<strong> ${time} min <strong/>`;
