@@ -30,21 +30,15 @@ export function addAndSearch(liClass) {
     li.addEventListener('click', (e) => {
       choice.appendChild(newLi)
       search_ingredient()
+      search_ustensils()
     })
   }
 }
 
 function search_ingredient() {
   const ingredients = document.querySelectorAll('.recipe-ingredient .ingredient')
-  const choices = document.querySelectorAll('.choice')
   const articles = document.querySelectorAll('.recipe')
-  let choiceSearch = []
-
-  //add all choice in variable choiceSearch for search in ingredient
-  for (let i = 0; i < choices.length; i++) {
-    const choice = choices[i]
-    choiceSearch.push(choice.innerText.split(' ').join(''))
-  }
+  const choiceSearch = setChoice('list-blue')
 
   //search in ingredient with choiceSearch
   choiceSearch.forEach((choice) => {
@@ -52,10 +46,40 @@ function search_ingredient() {
       const ingredient = ingredients[i]
       const ingredientSearch = ingredient.innerText.split('\n').join('').split(' ').join('').toLowerCase()
       if (ingredientSearch.includes(choice.toLowerCase())) {
-        console.log('ok')
+        document.querySelector('#section_recipes').appendChild(articles[i])
       } else {
         articles[i].remove()
       }
     }
   })
+}
+
+function search_ustensils(){
+const articles =  document.querySelectorAll('.recipe')
+const choices = document.querySelectorAll('.choice')
+const choiceSearch = setChoice('list-red');
+
+choiceSearch.forEach((choice) => {
+  for (let i = 0; i < articles.length; i++){
+    const article = articles[i]
+    const ustensilOfArticle = article.getAttribute("data-ustensil").split(",").join("").split(" ").join("").toLowerCase()
+    if(ustensilOfArticle.includes(choice.toLowerCase())){
+       document.querySelector('#section_recipes').appendChild(article)
+    }else{
+      article.remove()
+    }
+    }
+  })
+}
+
+//add all choice in variable choiceSearch for search in ingredient
+function setChoice(list){
+const choices = document.querySelectorAll(`ul .${list}`)
+console.log(choices);
+  let choiceSearch = []
+  for (let i = 0; i < choices.length; i++) {
+    const choice = choices[i]
+    choiceSearch.push(choice.innerText.split(' ').join(''))
+  }
+return choiceSearch
 }
