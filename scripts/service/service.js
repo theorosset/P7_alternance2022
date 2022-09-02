@@ -12,7 +12,7 @@ export async function fetchIngredientInRecipes(){
    return  res.json(); 
   }).then((data)=>{
     let arrayIngredients = [];
-    data.recipes.forEach(recipe => recipe.ingredients.forEach(ingredient =>  arrayIngredients.push(ingredient.ingredient)));
+    data.recipes.forEach(recipe => recipe.ingredients.forEach(ingredient =>  arrayIngredients.push(ingredient.ingredient.toLowerCase())));
     arrayIngredients =  [...new Set(arrayIngredients)]
     return arrayIngredients
   })
@@ -25,7 +25,7 @@ export async function fetchUstensilsInRecipes(){
    return  res.json(); 
   }).then((data)=>{
     let arrayUstensils = [];
-    data.recipes.forEach(recipe => recipe.ustensils.forEach(ustensil =>  arrayUstensils.push(ustensil)));
+    data.recipes.forEach(recipe => recipe.ustensils.forEach(ustensil =>  arrayUstensils.push(ustensil.toLowerCase())));
     arrayUstensils =  [...new Set(arrayUstensils)]
     return arrayUstensils
   })

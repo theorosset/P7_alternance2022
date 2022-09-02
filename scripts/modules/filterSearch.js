@@ -10,7 +10,7 @@ export function searchByFilter(input, list) {
       ) {
         li.remove()
       } else {
-        document.querySelector(`.${list}`).appendChild(li)
+        document.querySelector(`div .${list}`).appendChild(li)
       }
     }
   })
@@ -31,16 +31,17 @@ export function addAndSearch(liClass) {
       choice.appendChild(newLi)
       search_ingredient()
       search_ustensils()
+      search_appliance()
     })
   }
 }
 
+//search with filter ingredient 
 function search_ingredient() {
   const ingredients = document.querySelectorAll('.recipe-ingredient .ingredient')
   const articles = document.querySelectorAll('.recipe')
   const choiceSearch = setChoice('list-blue')
 
-  //search in ingredient with choiceSearch
   choiceSearch.forEach((choice) => {
     for (let i = 0; i < ingredients.length; i++) {
       const ingredient = ingredients[i]
@@ -54,9 +55,9 @@ function search_ingredient() {
   })
 }
 
+//search with filter ustensil 
 function search_ustensils(){
 const articles =  document.querySelectorAll('.recipe')
-const choices = document.querySelectorAll('.choice')
 const choiceSearch = setChoice('list-red');
 
 choiceSearch.forEach((choice) => {
@@ -64,6 +65,25 @@ choiceSearch.forEach((choice) => {
     const article = articles[i]
     const ustensilOfArticle = article.getAttribute("data-ustensil").split(",").join("").split(" ").join("").toLowerCase()
     if(ustensilOfArticle.includes(choice.toLowerCase())){
+       document.querySelector('#section_recipes').appendChild(article)
+    }else{
+      article.remove()
+    }
+    }
+  })
+}
+
+//search with filter appliance
+function search_appliance(){
+const articles =  document.querySelectorAll('.recipe')
+const choiceSearch = setChoice('list-green');
+
+choiceSearch.forEach((choice) => {
+  for (let i = 0; i < articles.length; i++){
+    const article = articles[i]
+    const applianceOfArticle = article.getAttribute("data-appliance").split(",").join("").split(" ").join("").toLowerCase()
+    console.log(applianceOfArticle);
+    if(applianceOfArticle.includes(choice.toLowerCase())){
        document.querySelector('#section_recipes').appendChild(article)
     }else{
       article.remove()
