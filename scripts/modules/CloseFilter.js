@@ -6,9 +6,9 @@
  */
 
 export function closeAllList(filter) {
-  const device = document.querySelector(".list-green");
-  const ingredient = document.querySelector(".list-blue");
-  const ustensil = document.querySelector(".list-red");
+  const device = document.querySelector("div .list-green");
+  const ingredient = document.querySelector("div .list-blue");
+  const ustensil = document.querySelector("div .list-red");
   const filterDevice = document.querySelector(".filter_device");
   const filterUstensil = document.querySelector(".filter_utensil");
   const filterIngredient = document.querySelector(".filter_recipes");

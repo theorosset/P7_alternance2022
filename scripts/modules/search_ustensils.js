@@ -5,16 +5,16 @@ import { searchByFilter } from "./filterSearch.js";
 
 // function for display list of ustensil
 export async function displayListUstensil() {
-  const filterUstensils = document.querySelector(".filter_utensil");
+  const filterUstensil = document.querySelector(".filter_utensil");
   const allIngredient = await fetchUstensilsInRecipes();
-  new List(filterUstensils, allIngredient);
+  new List(filterUstensil, allIngredient);
   const ul = document.querySelector(".list-red");
 
-  filterUstensils.addEventListener("click", () => {
+  filterUstensil.addEventListener("click", () => {
     ul.classList.toggle("displayNone");
-    filterUstensils.style.width = "667px";
+    filterUstensil.style.width = "667px";
     closeAllList("ustensil");
   });
-    searchByFilter(".filter_utensil", ".list-red");
+    searchByFilter(filterUstensil, "list-red");
 }
 

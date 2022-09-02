@@ -5,15 +5,15 @@ import { searchByFilter } from "./filterSearch.js";
 // function for display list of ingredients
 
 export async function displayListIngredient() {
-  const filterRecipes = document.querySelector(".filter_recipes");
+  const filterRecipe = document.querySelector(".filter_recipes");
   const allIngredient = await fetchIngredientInRecipes();
-  new List(filterRecipes, allIngredient);
+  new List(filterRecipe, allIngredient);
   const ul = document.querySelector(".list-blue");
-  filterRecipes.addEventListener("click", () => {
+  filterRecipe.addEventListener("click", () => {
     ul.classList.toggle("displayNone");
-    filterRecipes.style.width = "667px";
+    filterRecipe.style.width = "667px";
     closeAllList("ingredient");
   });
-  searchByFilter(".filter_recipes", ".list-blue");
+  searchByFilter(filterRecipe, "list-blue");
 }
 
