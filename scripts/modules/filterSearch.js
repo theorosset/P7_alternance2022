@@ -2,11 +2,13 @@ export function searchByFilter(input, list) {
   const allLI = document.querySelectorAll(`.${list} li`)
 
   input.addEventListener('input', (e) => {
-    const valueSearchBar = input.value.split(' ').join('').toLowerCase()
+    const valueSearchBar = input.value.toLowerCase()
+    
     for (let i = 0; i < allLI.length; i++) {
       const li = allLI[i]
+      const regexp = new RegExp(valueSearchBar, 'gi')
       if (
-        !li.innerText.split(' ').join('').toLowerCase().includes(valueSearchBar)
+        !li.innerText.match(regexp)
       ) {
         li.remove()
       } else {
@@ -41,12 +43,14 @@ function search_ingredient() {
   const ingredients = document.querySelectorAll('.recipe-ingredient .ingredient')
   const articles = document.querySelectorAll('.recipe')
   const choiceSearch = setChoice('list-blue')
-
+  
   choiceSearch.forEach((choice) => {
     for (let i = 0; i < ingredients.length; i++) {
       const ingredient = ingredients[i]
-      const ingredientSearch = ingredient.innerText.split('\n').join('').split(' ').join('').toLowerCase()
-      if (ingredientSearch.includes(choice.toLowerCase())) {
+      const ingredientSearch = ingredient.innerText.toLowerCase()
+      const regexp = new RegExp(choice, 'gi')
+      
+      if (ingredientSearch.match(regexp)) {
         document.querySelector('#section_recipes').appendChild(articles[i])
       } else {
         articles[i].remove()
@@ -63,8 +67,9 @@ const choiceSearch = setChoice('list-red');
 choiceSearch.forEach((choice) => {
   for (let i = 0; i < articles.length; i++){
     const article = articles[i]
-    const ustensilOfArticle = article.getAttribute("data-ustensil").split(",").join("").split(" ").join("").toLowerCase()
-    if(ustensilOfArticle.includes(choice.toLowerCase())){
+    const regexp = new RegExp(choice, 'gi')
+    const ustensilOfArticle = article.getAttribute("data-ustensil").toLowerCase()
+    if(ustensilOfArticle.match(regexp)){
        document.querySelector('#section_recipes').appendChild(article)
     }else{
       article.remove()
@@ -73,7 +78,7 @@ choiceSearch.forEach((choice) => {
   })
 }
 
-//search with filter appliance
+//search with filter appliance fusionner les search 
 function search_appliance(){
 const articles =  document.querySelectorAll('.recipe')
 const choiceSearch = setChoice('list-green');
@@ -81,9 +86,10 @@ const choiceSearch = setChoice('list-green');
 choiceSearch.forEach((choice) => {
   for (let i = 0; i < articles.length; i++){
     const article = articles[i]
-    const applianceOfArticle = article.getAttribute("data-appliance").split(",").join("").split(" ").join("").toLowerCase()
-    console.log(applianceOfArticle);
-    if(applianceOfArticle.includes(choice.toLowerCase())){
+    const regexp = new RegExp(choice, 'gi')
+    const applianceOfArticle = article.getAttribute("data-appliance").toLowerCase()
+    
+    if(applianceOfArticle.match(regexp)){
        document.querySelector('#section_recipes').appendChild(article)
     }else{
       article.remove()
@@ -95,11 +101,10 @@ choiceSearch.forEach((choice) => {
 //add all choice in variable choiceSearch for search in ingredient
 function setChoice(list){
 const choices = document.querySelectorAll(`ul .${list}`)
-console.log(choices);
   let choiceSearch = []
   for (let i = 0; i < choices.length; i++) {
     const choice = choices[i]
-    choiceSearch.push(choice.innerText.split(' ').join(''))
+    choiceSearch.push(choice.innerText)
   }
 return choiceSearch
 }

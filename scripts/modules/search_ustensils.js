@@ -12,7 +12,7 @@ export async function displayListUstensil() {
 
   filterUstensil.addEventListener("click", () => {
     ul.classList.toggle("displayNone");
-    filterUstensil.style.width = "667px";
+    filterUstensil.style.width = "667px";//ajouter une class a la place
     closeAllList("ustensil");
   });
     searchByFilter(filterUstensil, "list-red");

@@ -146,7 +146,7 @@ background-color: #68D9A4;
 .list-green{
  background-color: #68D9A4;
 }
-
+/* remplacer space between par un margin */
 
 .filterChoice{
   display: flex;
