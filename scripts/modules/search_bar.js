@@ -5,11 +5,10 @@ export function search() {
 
   input.addEventListener('input', (e) => {
     const valueSearchBar = input.value.split(' ').join('').toLowerCase()
-    console.log(valueSearchBar)
     for (let i = 0; i < h2All.length; i++) {
       const h2 = h2All[i]
       const article = articles[i]
-      if (!h2.innerText.split(' ').join('').toLowerCase().includes(valueSearchBar) &&valueSearchBar.length >= 3) 
+      if (!h2.innerText.split(' ').join('').toLowerCase().includes(valueSearchBar) && valueSearchBar.length >= 3) 
       {
         article.remove()
       } else {

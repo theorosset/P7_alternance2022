@@ -15,6 +15,7 @@ async function main() {
   await displayListIngredient()
   await displayListUstensil()
   await displayListAppliance()
+  
 }
 
 main()
