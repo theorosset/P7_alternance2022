@@ -1,4 +1,5 @@
-export class article {
+
+export class Article {
   constructor(recipes) {
     const {
       appliance,
@@ -37,7 +38,8 @@ export class article {
 
     //set attribut
     a.setAttribute("src", "#");
-
+    article.setAttribute("data-ustensil", ustensils)
+    article.setAttribute("data-appliance",appliance)
     //set innerText
     h2.innerText = name;
     pTime.innerHTML = `<strong> ${time} min <strong/>`;
@@ -63,3 +65,30 @@ export class article {
     });
   }
 }
+export class List{
+  constructor(input, elementRecipe){
+    const parent = input.parentNode
+    const ul = document.createElement("ul")
+     ul.classList.add("list")
+     ul.classList.add("displayNone")
+
+    if(input.classList.value === 'filter filter_recipes'){
+      ul.classList.add("list-blue")
+    }
+    if(input.classList.value === 'filter filter_utensil'){
+      ul.classList.add("list-red")
+    }
+    if(input.classList.value === 'filter filter_device'){
+      ul.classList.add("list-green")
+    }
+    
+    parent.insertBefore(ul, input.nextSibling)
+    for(let i = 0; i < elementRecipe.length; i++){
+      const li = document.createElement('li');
+      li.innerText = elementRecipe[i]
+      ul.appendChild(li)
+    }
+  }
+
+}
+ 
