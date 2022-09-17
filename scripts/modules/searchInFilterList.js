@@ -1,7 +1,7 @@
 export function searchInList(classList, filter) {
-  const allLi = Array.from(document.querySelectorAll(`div .${classList} li`))
+  const allLi = Array.from(document.querySelectorAll(`div  li`))
   const input = document.querySelector(`.${filter}`)
-
+  
   input.addEventListener('keyup', (e) => {
     const string = e.target.value.toLowerCase()
     allLi.filter((li) => {
