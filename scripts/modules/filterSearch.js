@@ -15,42 +15,47 @@ export function searchByFilter(input, list) {
       }
     }
   })
-  addAndSearch(list)
 }
 
-export function addAndSearch(liClass) {
-  const list = document.querySelectorAll(`.${liClass} li`)
-  const choice = document.querySelector('.filterChoice')
-  for (let i = 0; i < list.length; i++) {
-    const li = list[i]
-    const newLi = document.createElement('li')
-    newLi.classList.add(liClass)
-    newLi.classList.add('choice')
-    newLi.innerHTML = ` ${li.innerText} <img src='./assets/cross.svg' alt='supprimer le choix'>`
-    li.addEventListener('click', (e) => {
-      choice.appendChild(newLi)
-      deletChoice()
-      search_ingredient()
-      search_ustensils()
-      search_appliance()
+//add filter in section filterChoice
+export function addAndSearchFilter() {
+  const allLi = document.querySelectorAll('.list li')
+
+  allLi.forEach((li) => {
+    li.addEventListener('click', (event) => {
+      if (event.target.closest('ul')) {
+        const parentClass = event.target.closest('ul').classList.value
+        const newLi = document.createElement('li')
+        newLi.innerHTML = `${li.innerText} <img src='./assets/cross.svg' alt='supprimer le choix'>`
+        newLi.classList.add('choice')
+
+        if (parentClass === 'list list-blue') {
+          addClassOfChoice('list-blue', newLi)
+        }
+        if (parentClass === 'list list-red') {
+          addClassOfChoice('list-red', newLi)
+          search_ustensils_appliance('data-ustensil', 'list-red')
+        }
+        if (parentClass === 'list list-green') {
+          addClassOfChoice('list-green', newLi)
+          search_ustensils_appliance('data-appliance', 'list-green')
+        }
+      }
     })
-  }
+  })
 }
 
-function deletChoice() {
-  const allImg = document.querySelectorAll('.choice img')
-  const  choices = document.querySelectorAll('.choice')
-  for(let i = 0; i < allImg.length; i++){
-    const img = allImg[i] 
-    const choice = choices[i]
-    img.addEventListener('click', () => {
-      choice.remove()
-      search_ingredient()
-      search_ustensils()
-      search_appliance()
-    }) 
-  }
+/**
+ * 
+ * @param {HTMLClassElement} classList 
+ * @param {HTMLElement} li 
+ */
+ function addClassOfChoice(classList, li) {
+  const filterChoice = document.querySelector('.filterChoice')
+  li.classList.add(classList)
+  filterChoice.appendChild(li)
 }
+
 
 //search with filter ingredient
 function search_ingredient() {
@@ -73,16 +78,16 @@ function search_ingredient() {
 }
 
 //search with filter ustensil
-function search_ustensils() {
+function search_ustensils_appliance(dataSet, classList) {
   const articles = document.querySelectorAll('.recipe')
-  const choiceSearch = setChoice('list-red')
+  const choiceSearch = setChoice(classList)
 
   choiceSearch.forEach((choice) => {
     for (let i = 0; i < articles.length; i++) {
       const article = articles[i]
       const regexp = new RegExp(choice, 'gi')
       const ustensilOfArticle = article
-        .getAttribute('data-ustensil')
+        .getAttribute(dataSet)
         .toLowerCase()
       if (ustensilOfArticle.match(regexp)) {
         document.querySelector('#section_recipes').appendChild(article)
