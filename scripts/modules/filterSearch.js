@@ -31,6 +31,7 @@ export function addAndSearchFilter() {
 
         if (parentClass === 'list list-blue') {
           addClassOfChoice('list-blue', newLi)
+          search_ingredient()
         }
         if (parentClass === 'list list-red') {
           addClassOfChoice('list-red', newLi)
