@@ -27,7 +27,11 @@ export function addFilter() {
   })
 }
 
-//function for appendChild of section filterChoice
+/**
+ * 
+ * @param {HTMLClassElement} classList 
+ * @param {HTMLElement} li 
+ */
 function addClassOfChoice(classList, li) {
   const filterChoice = document.querySelector('.filterChoice')
   li.classList.add(classList)
@@ -69,7 +73,7 @@ function ingredientMatch(choice, ingredient) {
  * this function look if appliance or ustensil match with choice
  *
  * @param {HTMLElement} choice
- * @param {data-set} attributeOfArticle
+ * @param {HTMLDataElement} attributeOfArticle
  * @param {HTMLElement} article
  *
  */
@@ -87,20 +91,29 @@ function searchInApplianceOrUstensil(dataSet, classList, li) {
   const articles = document.querySelectorAll('.recipe')
   const choices = Array.from(document.querySelectorAll(`.choice.${classList}`))
 
-  choices.forEach((choice) => {
+  choices.forEach((choice) => { 
     articles.forEach((article) => {
       const applianceOfArticle = article.getAttribute(dataSet).toLowerCase()
       ustensilApplianceMatch(choice, applianceOfArticle, article)
     })
   })
+
   deletFilter(li, choices, articles)
 }
 
+
+/**
+ * 
+ * @param {HTMLElement} li  its li in ul .filterChoice
+ * @param {HTMLAllCollection} choices 
+ * @param {HTMLBaseElement} ingredientsOrArticles 
+ */
+
 function deletFilter(li, choices, ingredientsOrArticles) {
   const section = document.querySelector('#section_recipes')
-
+  
   li.children[0].addEventListener('click', () => {
-    const indexChoice = choices.findIndex((choice) => choice.innerText === li.innerText)
+    const indexChoice = choices.findIndex((choice) => { return choice.innerText === li.innerText})
     li.remove()
     choices.splice(indexChoice, 1)
 
