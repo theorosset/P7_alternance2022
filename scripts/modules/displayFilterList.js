@@ -6,9 +6,9 @@ import { searchInList } from './searchInFilterList.js'
 // function for display list of ingredients
 export async function displayListAppliance() {
   const filterDevice = document.querySelector('.filter_device')
-  const allIngredient = await fetchApplianceInRecipes()
+  const allAppliance = await fetchApplianceInRecipes()
 
-  new List(filterDevice, allIngredient)
+  new List(filterDevice, allAppliance)
 
   const ul = document.querySelector('.list-green')
 
@@ -24,15 +24,15 @@ export async function displayListAppliance() {
 // function for display list of ustensil
 export async function displayListUstensil() {
   const filterUstensil = document.querySelector('.filter_utensil')
-  const allIngredient = await fetchUstensilsInRecipes()
+  const allUstensil = await fetchUstensilsInRecipes()
 
-  new List(filterUstensil, allIngredient)
+  new List(filterUstensil, allUstensil)
 
   const ul = document.querySelector('.list-red')
 
   filterUstensil.addEventListener('click', () => {
     ul.classList.toggle('displayNone')
-    filterUstensil.style.width = '667px' //ajouter une class a la place
+    filterUstensil.style.width = '667px'
     closeAllList('ustensil')
   })
 
