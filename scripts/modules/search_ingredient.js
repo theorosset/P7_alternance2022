@@ -1,7 +1,7 @@
 import { List } from "../factories/factorie.js";
 import { fetchIngredientInRecipes } from "../service/service.js";
 import { closeAllList } from "./CloseFilter.js";
-import { searchByFilter } from "./filterSearch.js";
+import { searchInListOfFilter } from "./searchInFilterList.js";
 
 // function for display list of ingredients
 export async function displayListIngredient() {
@@ -14,5 +14,5 @@ export async function displayListIngredient() {
     filterRecipe.style.width = "667px";
     closeAllList("ingredient");
   });
-  searchByFilter(filterRecipe, "list-blue");
+  searchInListOfFilter(filterRecipe, "list-blue");
 }
