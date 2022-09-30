@@ -123,7 +123,6 @@ function deleteFilter(event, elements, liInlistOfFilter, classList ) {
   elements[classList].splice(indexChoice, 1)
   let choices = [...elements["list-red"] ?? [], ...elements["list-green"] ?? [] ,...elements["list-blue"] ?? []]
   
-  console.log(elements);
   liInFilterChoice.remove()
   liInlistOfFilter.classList.remove("displayNone")
   
@@ -133,12 +132,5 @@ function deleteFilter(event, elements, liInlistOfFilter, classList ) {
     searchInApplianceOrUstensil('data-ustensil', 'list-red', true)
     searchInApplianceOrUstensil('data-appliance', 'list-green', true)
     searchInIngredient('list-blue', true)
-    // elements.choices.forEach((choice) => {
-    //   document.querySelectorAll('article').forEach((article) => {
-    //     textMatch(choice, article, 'data-ustensil')
-    //     textMatch(choice, article, 'data-appliance')
-    //     textMatch(choice, article)
-    //   });
-    // });
   }
 }
