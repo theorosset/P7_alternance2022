@@ -1,6 +1,6 @@
 import { List } from "../factories/factorie.js";
 import { fetchIngredientInRecipes } from "../service/service.js";
-import { closeAllList } from "./CloseFilter.js";
+import { closeAllList } from "./closeAllList.js";
 import { searchInListOfFilter } from "./searchInFilterList.js";
 
 // function for display list of ingredients
