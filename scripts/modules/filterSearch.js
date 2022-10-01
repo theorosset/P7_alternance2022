@@ -1,3 +1,5 @@
+import { errorMessageIfSearchWithFilter } from './errorMessage.js'
+
 //add filter in section filterChoice
 export function addAndSearchFilter() {
   const allLi = document.querySelectorAll('.list li')
@@ -72,6 +74,7 @@ function searchInIngredient(classList, doNotFilter) {
 
 function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
   const regexp = new RegExp(choice.innerText.toLowerCase(), 'gi')
+  const section = document.querySelector('#section_recipes')
   let value;
 
   if (htmlElementOrAttribute.tagName === 'ARTICLE' && dataAttribute) {
@@ -81,7 +84,7 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
     value = htmlElementOrAttribute.innerText.toLowerCase()
     htmlElementOrAttribute.closest('article').classList.toggle('displayNone', !regexp.test(value))
   }
-
+  errorMessageIfSearchWithFilter(section)
 }
 
 function searchInApplianceOrUstensil(dataSet, classList, doNotFilter) {

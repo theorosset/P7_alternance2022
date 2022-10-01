@@ -1,7 +1,10 @@
+import { errorMessageIfSearchWithBar } from './errorMessage.js'
+
 export function search() {
   const input = document.querySelector('.search_bar')
   const h2All = document.querySelectorAll('.recipe-title-time h2')
   const articles = document.querySelectorAll('.recipe')
+  const section = document.querySelector('#section_recipes')
 
   input.addEventListener('input', (e) => {
     const valueSearchBar = input.value.split(' ').join('').toLowerCase()
@@ -14,6 +17,7 @@ export function search() {
       } else {
         document.querySelector('#section_recipes').appendChild(article)
       }
+      errorMessageIfSearchWithBar(section)
     }
   })
 }
