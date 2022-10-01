@@ -11,15 +11,17 @@ export function addFilter() {
       if (event.target.closest('ul')) {
         const parentClass = event.target.closest('ul').classList.value
         const parentClassPart = parentClass.split(" ")
-        
+
+        // create and display filter choice 
         const newLi = document.createElement('li')
         newLi.innerHTML = `${li.innerText} <img class="cross" src='./assets/cross.svg' alt='supprimer le choix'>`
         newLi.classList.add('choice')
 
         if(parentClassPart[0] === "list" && parentClassPart[1].indexOf("list-") > -1) {
-
+          
           addClassOfChoice(parentClassPart[1], newLi)
 
+          //condition for set element variable
           if (parentClassPart[1].indexOf('blue') > -1) {
             elements = { ...elements, ...searchInIngredient(parentClassPart[1]) }
           } else {
@@ -27,16 +29,15 @@ export function addFilter() {
             elements = { ...elements, ...searchInApplianceOrUstensil(dataName, parentClassPart[1]) }            
           }
           
-          //elements.choices = [...elements["list-red"] ?? [], ...elements["list-green"] ?? [] ,...elements["list-blue"] ?? []]
           li.classList.add("displayNone")
         }
-   
+
+        //add Event listener for delet filter
         newLi.querySelector('.cross').addEventListener('click', (event) => deleteFilter(event, elements, li, parentClassPart[1]));
       }
     })
   })
 }
-
 
 /**
  * 
@@ -70,6 +71,14 @@ function searchInIngredient(classList, doNotFilter) {
   return elements;
 }
 
+/**
+ * 
+ * @param {Element} choice 
+ * @param {HTMLElement} htmlElementOrAttribute 
+ * @param {HTMLDataElement} dataAttribute 
+ * 
+ *  this function display recipes found 
+ */
 function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
   const section = document.querySelector("#section_recipes")
   const regexp = new RegExp(choice.innerText.toLowerCase(), 'gi')
@@ -83,9 +92,17 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
     value = htmlElementOrAttribute.innerText.toLowerCase()
     htmlElementOrAttribute.closest('article').classList.toggle('displayNone', !regexp.test(value))
   }
+
   errorMessageIfSearchWithFilter(section)
 }
 
+/**
+ * 
+ * @param {HTMLDataElement} dataSet 
+ * @param {HTMLClassElement} classList 
+ * @param {Boolean} doNotFilter 
+ * 
+ */
 function searchInApplianceOrUstensil(dataSet, classList, doNotFilter) {
   const articles = Array.from(document.querySelectorAll('.recipe')).filter(
     (article) => doNotFilter || !article.classList.contains('displayNone')
@@ -108,9 +125,12 @@ function searchInApplianceOrUstensil(dataSet, classList, doNotFilter) {
 
 /**
  * 
- * @param {HTMLElement} li  its li in ul .filterChoice
- * @param {HTMLAllCollection} choices 
- * @param {HTMLBaseElement} ingredientsOrArticles 
+ * @param {Event} event 
+ * @param {Array} elements 
+ * @param {HTMLElement} liInlistOfFilter 
+ * @param {HTMLClassElement} classList 
+ * 
+ * this function its for delet filter and play search function 
  */
 
 function deleteFilter(event, elements, liInlistOfFilter, classList ) {
