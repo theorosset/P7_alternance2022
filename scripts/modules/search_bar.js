@@ -1,6 +1,9 @@
+import { errorMessageIfSearchWithBar } from "./errorMessage.js"
+
 export function search() {
   const h2All = Array.from(document.querySelectorAll('.recipe-title-time h2'))
   const input = document.querySelector('.search_bar')
+  const section = document.querySelector("#section_recipes")
 
   input.addEventListener('keyup', (e) => {
     const string = e.target.value.toLowerCase()
@@ -9,11 +12,11 @@ export function search() {
         const parent = h2.closest('article')
         parent.remove()
       } else {
-        const section = document.querySelector("#section_recipes")
         const parent = h2.closest('article')
         section.appendChild(parent)
-      }
+      }       
     })
+    errorMessageIfSearchWithBar(section)
   })
 }
 

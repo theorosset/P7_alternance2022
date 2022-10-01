@@ -226,3 +226,11 @@ background-color: #68D9A4;
 .displayNone{
   display: none;
 }
+
+.errorMessage {
+  text-align: center;
+  position: relative;
+  left: 463px;
+  top: 100px;
+  font-size: 18px;
+}
