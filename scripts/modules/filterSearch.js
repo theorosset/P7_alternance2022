@@ -52,10 +52,15 @@ function addClassOfChoice(classList, li) {
 
 //------------ingredient search------------------
 function searchInIngredient(classList, doNotFilter) {
+  const ingredientsElement = document.querySelectorAll('.ingredient')
+  const ingredients = []
 
-  const ingredients = Array.from(document.querySelectorAll('.ingredient'))
-    .filter((ingredient) => doNotFilter || !ingredient.closest('article').classList.contains('displayNone'))
-
+    for(let c = 0; c < ingredientsElement.length; c++){
+      const ingredient = ingredientsElement[c]
+      if( doNotFilter || !ingredient.closest('article').classList.contains('displayNone')) {
+        ingredients.push(ingredient)
+      }
+    }
   const choices = Array.from(document.querySelectorAll('.choice.list-blue'))
   
   for(let i = 0; i < ingredients.length; i++) {
@@ -88,9 +93,15 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
 }
 
 function searchInApplianceOrUstensil(dataSet, classList, doNotFilter) {
-  const articles = Array.from(document.querySelectorAll('.recipe')).filter(
-    (article) => doNotFilter || !article.classList.contains('displayNone')
-  )
+  const articles = []
+  const articlesElements = document.querySelectorAll('.recipe')
+  
+  for(let c = 0; c < articlesElements.length; c++){
+    const article = articlesElements[c]
+    if( doNotFilter || !article.classList.contains('displayNone')) {
+      articles.push(article)
+    }
+  }
   const choices = Array.from(document.querySelectorAll(`.choice.${classList}`))
 
   for(let i = 0; i < articles.length; i++) {
