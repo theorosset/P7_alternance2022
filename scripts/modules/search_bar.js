@@ -7,13 +7,11 @@ export function search() {
 
   input.addEventListener('keyup', (e) => {
     const string = e.target.value.toLowerCase()
-    h2All.filter((h2) => {
+    h2All.forEach((h2) => {
       if(!h2.innerText.toLowerCase().includes(string) && input.value.length > 2 ){
-        const parent = h2.closest('article')
-        parent.remove()
+        h2.closest('article').remove()
       } else {
-        const parent = h2.closest('article')
-        section.appendChild(parent)
+        section.appendChild(h2.closest('article'))
       }       
     })
     errorMessageIfSearchWithBar(section)
