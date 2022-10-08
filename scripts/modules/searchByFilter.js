@@ -1,42 +1,42 @@
-import { errorMessageIfSearchWithFilter } from './errorMessage.js'
+import { errorMessageIfSearchWithFilter } from "./errorMessage.js";
 
 //add filter in section filterChoice
 export function addFilter() {
-  const allLi = document.querySelectorAll('.list li')
+  const allLi = document.querySelectorAll(".list li");
 
   let elements = { articles: [], ingredients: [], "list-red": [],  "list-green": [],  "list-blue": [] };
   
   allLi.forEach((li) => {
-    li.addEventListener('click', (event) => {
-      if (event.target.closest('ul')) {
-        const parentClass = event.target.closest('ul').classList.value
-        const parentClassPart = parentClass.split(" ")
+    li.addEventListener("click", (event) => {
+      if (event.target.closest("ul")) {
+        const parentClass = event.target.closest("ul").classList.value;
+        const parentClassPart = parentClass.split(" ");
 
         // create and display filter choice 
-        const newLi = document.createElement('li')
-        newLi.innerHTML = `${li.innerText} <img class="cross" src='./assets/cross.svg' alt='supprimer le choix'>`
-        newLi.classList.add('choice')
+        const newLi = document.createElement("li");
+        newLi.innerHTML = `${li.innerText} <img class="cross" src='./assets/cross.svg' alt='supprimer le choix'>`;
+        newLi.classList.add("choice");
 
         if(parentClassPart[0] === "list" && parentClassPart[1].indexOf("list-") > -1) {
           
-          addClassOfChoice(parentClassPart[1], newLi)
+          addClassOfChoice(parentClassPart[1], newLi);
 
           //condition for set element variable
-          if (parentClassPart[1].indexOf('blue') > -1) {
-            elements = { ...elements, ...searchInIngredient(parentClassPart[1]) }
+          if (parentClassPart[1].indexOf("blue") > -1) {
+            elements = { ...elements, ...searchInIngredient(parentClassPart[1]) };
           } else {
-            const dataName = parentClassPart[1] === "list-red" ? 'data-ustensil' : 'data-appliance';
-            elements = { ...elements, ...searchInApplianceOrUstensil(dataName, parentClassPart[1]) }            
+            const dataName = parentClassPart[1] === "list-red" ? "data-ustensil" : "data-appliance";
+            elements = { ...elements, ...searchInApplianceOrUstensil(dataName, parentClassPart[1]) };            
           }
           
-          li.classList.add("displayNone")
+          li.classList.add("displayNone");
         }
 
         //add Event listener for delet filter
-        newLi.querySelector('.cross').addEventListener('click', (event) => deleteFilter(event, elements, li, parentClassPart[1]));
+        newLi.querySelector(".cross").addEventListener("click", (event) => deleteFilter(event, elements, li, parentClassPart[1]));
       }
-    })
-  })
+    });
+  });
 }
 
 /**
@@ -46,24 +46,24 @@ export function addFilter() {
  * 
  */
 function addClassOfChoice(classList, li) {
-  const filterChoice = document.querySelector('.filterChoice')
-  li.classList.add(classList)
-  filterChoice.appendChild(li)
+  const filterChoice = document.querySelector(".filterChoice");
+  li.classList.add(classList);
+  filterChoice.appendChild(li);
 }
 
 //------------ingredient search------------------
 function searchInIngredient(classList, doNotFilter) {
 
-  const ingredients = Array.from(document.querySelectorAll('.ingredient'))
-    .filter((ingredient) => doNotFilter || !ingredient.closest('article').classList.contains('displayNone'))
+  const ingredients = Array.from(document.querySelectorAll(".ingredient"))
+    .filter((ingredient) => doNotFilter || !ingredient.closest("article").classList.contains("displayNone"));
 
-  const choices = Array.from(document.querySelectorAll('.choice.list-blue'))
+  const choices = Array.from(document.querySelectorAll(".choice.list-blue"));
 
   ingredients.forEach((ingredient) => {    
     choices.forEach((choice) => {
-      textMatch(choice, ingredient)
-    })
-  })
+      textMatch(choice, ingredient);
+    });
+  });
 
   const elements = { ingredients };
   elements[classList] = choices;
@@ -80,20 +80,20 @@ function searchInIngredient(classList, doNotFilter) {
  *  this function display recipes found 
  */
 function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
-  const section = document.querySelector("#section_recipes")
-  const regexp = new RegExp(choice.innerText.toLowerCase(), 'gi')
+  const section = document.querySelector("#section_recipes");
+  const regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
   
   let value;
 
-  if (htmlElementOrAttribute.tagName === 'ARTICLE' && dataAttribute) {
-    value = htmlElementOrAttribute.getAttribute(dataAttribute).toLowerCase() 
-    htmlElementOrAttribute.classList.toggle('displayNone', !regexp.test(value))
+  if (htmlElementOrAttribute.tagName === "ARTICLE" && dataAttribute) {
+    value = htmlElementOrAttribute.getAttribute(dataAttribute).toLowerCase(); 
+    htmlElementOrAttribute.classList.toggle("displayNone", !regexp.test(value));
   } else {
-    value = htmlElementOrAttribute.innerText.toLowerCase()
-    htmlElementOrAttribute.closest('article').classList.toggle('displayNone', !regexp.test(value))
+    value = htmlElementOrAttribute.innerText.toLowerCase();
+    htmlElementOrAttribute.closest("article").classList.toggle("displayNone", !regexp.test(value));
   }
 
-  errorMessageIfSearchWithFilter(section)
+  errorMessageIfSearchWithFilter(section);
 }
 
 /**
@@ -104,17 +104,17 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
  * 
  */
 function searchInApplianceOrUstensil(dataSet, classList, doNotFilter) {
-  const articles = Array.from(document.querySelectorAll('.recipe')).filter(
-    (article) => doNotFilter || !article.classList.contains('displayNone')
-  )
+  const articles = Array.from(document.querySelectorAll(".recipe")).filter(
+    (article) => doNotFilter || !article.classList.contains("displayNone")
+  );
 
-  const choices = Array.from(document.querySelectorAll(`.choice.${classList}`))
+  const choices = Array.from(document.querySelectorAll(`.choice.${classList}`));
 
   choices.forEach((choice) => { 
     articles.forEach((article) => {
-      textMatch(choice, article, dataSet)
-    })
-  })
+      textMatch(choice, article, dataSet);
+    });
+  });
 
   const elements = { articles };
   elements[classList] = choices;
@@ -136,25 +136,25 @@ function searchInApplianceOrUstensil(dataSet, classList, doNotFilter) {
 function deleteFilter(event, elements, liInlistOfFilter, classList ) {
   let dataName;
 
-  if (classList.indexOf('blue') === -1) {
-    dataName = classList === "list-red" ? 'data-ustensil' : 'data-appliance';
+  if (classList.indexOf("blue") === -1) {
+    dataName = classList === "list-red" ? "data-ustensil" : "data-appliance";
   }
 
-  const liInFilterChoice = event.target.closest('li')
+  const liInFilterChoice = event.target.closest("li");
  
-  const indexChoice = elements[classList].findIndex((choice) => choice.innerText === liInFilterChoice.innerText)
+  const indexChoice = elements[classList].findIndex((choice) => choice.innerText === liInFilterChoice.innerText);
 
-  elements[classList].splice(indexChoice, 1)
-  let choices = [...elements["list-red"] ?? [], ...elements["list-green"] ?? [] ,...elements["list-blue"] ?? []]
+  elements[classList].splice(indexChoice, 1);
+  let choices = [...elements["list-red"] ?? [], ...elements["list-green"] ?? [] ,...elements["list-blue"] ?? []];
   
-  liInFilterChoice.remove()
-  liInlistOfFilter.classList.remove("displayNone")
+  liInFilterChoice.remove();
+  liInlistOfFilter.classList.remove("displayNone");
   
   if (choices.length === 0) {
-    document.querySelectorAll('article').forEach((article)=>article.classList.toggle('displayNone', false));
+    document.querySelectorAll("article").forEach((article)=>article.classList.toggle("displayNone", false));
   } else {
-    searchInApplianceOrUstensil('data-ustensil', 'list-red', true)
-    searchInApplianceOrUstensil('data-appliance', 'list-green', true)
-    searchInIngredient('list-blue', true)
+    searchInApplianceOrUstensil("data-ustensil", "list-red", true);
+    searchInApplianceOrUstensil("data-appliance", "list-green", true);
+    searchInIngredient("list-blue", true);
   }
 }

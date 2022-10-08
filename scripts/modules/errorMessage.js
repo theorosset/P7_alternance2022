@@ -1,26 +1,26 @@
 export function errorMessageIfSearchWithBar(section) {
-    const errorMsg = document.querySelector('.errorMessage')
+    const errorMsg = document.querySelector(".errorMessage");
     
     if(section.children.length === 1) {
-        errorMsg.classList.remove('displayNone')
+        errorMsg.classList.remove("displayNone");
       } else {
-        errorMsg.classList.add('displayNone')
+        errorMsg.classList.add("displayNone");
       }
 }
 
 export function errorMessageIfSearchWithFilter(section){
-  const errorMessage = document.querySelector(".errorMessage")
+  const errorMessage = document.querySelector(".errorMessage");
   let numberOfElementHaveDisplayNone = 0;
 
   Array.from(section.children).forEach((article) => {
-    if (article.classList.contains('displayNone')) { 
-      numberOfElementHaveDisplayNone++
+    if (article.classList.contains("displayNone")) { 
+      numberOfElementHaveDisplayNone++;
     }
-  })
+  });
   
   if(section.children.length === numberOfElementHaveDisplayNone) {
-    errorMessage.classList.remove('displayNone')
+    errorMessage.classList.remove("displayNone");
   } else {
-    errorMessage.classList.add('displayNone')
+    errorMessage.classList.add("displayNone");
   }
 }

@@ -33,17 +33,17 @@ export class Article {
     divRecipeIngredient.classList.add("recipe-ingredient");
     divIngredient.classList.add("ingredient");
     divRecipeTitleTime.classList.add("recipe-title-time");
-    divRecipLogic.classList.add('recipe-logic')
+    divRecipLogic.classList.add("recipe-logic");
     
 
     //set attribut
     a.setAttribute("src", "#");
-    article.setAttribute("data-ustensil", ustensils)
-    article.setAttribute("data-appliance",appliance)
+    article.setAttribute("data-ustensil", ustensils);
+    article.setAttribute("data-appliance",appliance);
     //set innerText
     h2.innerText = name;
     pTime.innerHTML = `<strong> ${time} min <strong/>`;
-    pRecip.innerText = description
+    pRecip.innerText = description;
 
     //append child
     section.appendChild(article);
@@ -56,7 +56,7 @@ export class Article {
     divRecipeTitleTime.appendChild(pTime);
     divRecipeIngredient.appendChild(divIngredient);
     divRecipeIngredient.appendChild(divRecipLogic);
-    divRecipLogic.appendChild(pRecip)
+    divRecipLogic.appendChild(pRecip);
 
     ingredients.forEach(({ ingredient, quantity, unit }) => {
       const p = document.createElement("p");
@@ -67,26 +67,26 @@ export class Article {
 }
 export class List{
   constructor(input, elementRecipe){
-    const parent = input.parentNode
-    const ul = document.createElement("ul")
-     ul.classList.add("list")
-     ul.classList.add("displayNone")
+    const parent = input.parentNode;
+    const ul = document.createElement("ul");
+     ul.classList.add("list");
+     ul.classList.add("displayNone");
 
-    if(input.classList.value === 'filter filter_recipes'){
-      ul.classList.add("list-blue")
+    if(input.classList.value === "filter filter_recipes"){
+      ul.classList.add("list-blue");
     }
-    if(input.classList.value === 'filter filter_utensil'){
-      ul.classList.add("list-red")
+    if(input.classList.value === "filter filter_utensil"){
+      ul.classList.add("list-red");
     }
-    if(input.classList.value === 'filter filter_device'){
-      ul.classList.add("list-green")
+    if(input.classList.value === "filter filter_device"){
+      ul.classList.add("list-green");
     }
     
-    parent.insertBefore(ul, input.nextSibling)
+    parent.insertBefore(ul, input.nextSibling);
     for(let i = 0; i < elementRecipe.length; i++){
-      const li = document.createElement('li');
-      li.innerText = elementRecipe[i]
-      ul.appendChild(li)
+      const li = document.createElement("li");
+      li.innerText = elementRecipe[i];
+      ul.appendChild(li);
     }
   }
 
