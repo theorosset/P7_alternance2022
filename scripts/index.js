@@ -8,15 +8,15 @@ import { addAndSearchFilter } from "./modules/filterSearch.js";
 
 
 async function main() {
-  const data = await fetchRecipes();
-  data.recipes.forEach((recipe) => {
-    new Article(recipe);
-  });
-  search();
-  await displayListIngredient();
-  await displayListUstensil();
-  await displayListAppliance();
-  addAndSearchFilter();
+	const data = await fetchRecipes();
+	data.recipes.forEach((recipe) => {
+		new Article(recipe);
+	});
+	search();
+	await displayListIngredient();
+	await displayListUstensil();
+	await displayListAppliance();
+	addAndSearchFilter();
 }
 
 main();
