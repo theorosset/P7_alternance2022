@@ -128,7 +128,6 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 			const article = articles[i];
 			for (let j = 0; j < choices.length; j++) {
 				const choice = choices[j];
-				console.log(choice);
 				textMatch(choice, article, dataSet);
 			}
 		}
@@ -190,12 +189,15 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 				method: searchInIngredient,
 			},
 		};
+		let newKeysOrder = [];
+		newKeysOrder.push(classList);
 
-		const newKeysOrder = [].concat(
-			[classList],
-			Object.keys(workflowObject).filter((item) => item !== classList),
-		);
-
+		for(let i = 0;  i < Object.keys(workflowObject).length; i++) {
+			const item = Object.keys(workflowObject)[i];
+			if (item !== classList) {
+				newKeysOrder.push(item);
+			}
+		}
 		for (let i = 0; i < newKeysOrder.length; i++) {
 			const item = newKeysOrder[i];
 			workflowObject[item]["method"](item, item === classList, workflowObject[item]["attribute"]);
