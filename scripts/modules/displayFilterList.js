@@ -5,54 +5,54 @@ import { searchInList } from "./searchInFilterList.js";
 
 // function for display list of ingredients
 export async function displayListAppliance() {
-  const filterDevice = document.querySelector(".filter_device");
-  const allAppliance = await fetchApplianceInRecipes();
+	const filterDevice = document.querySelector(".filter_device");
+	const allAppliance = await fetchApplianceInRecipes();
 
-  new List(filterDevice, allAppliance);
+	new List(filterDevice, allAppliance);
 
-  const ul = document.querySelector(".list-green");
+	const ul = document.querySelector(".list-green");
 
-  filterDevice.addEventListener("click", () => {
-    ul.classList.toggle("displayNone");
-    filterDevice.style.width = "667px";
-    closeAllList("device");
-  });
+	filterDevice.addEventListener("click", () => {
+		ul.classList.toggle("displayNone");
+		filterDevice.style.width = "667px";
+		closeAllList("device");
+	});
 
-  searchInList("list-green", "filter_device");
+	searchInList("list-green", "filter_device");
 }
 
 // function for display list of ustensil
 export async function displayListUstensil() {
-  const filterUstensil = document.querySelector(".filter_utensil");
-  const allUstensil = await fetchUstensilsInRecipes();
+	const filterUstensil = document.querySelector(".filter_utensil");
+	const allUstensil = await fetchUstensilsInRecipes();
 
-  new List(filterUstensil, allUstensil);
+	new List(filterUstensil, allUstensil);
 
-  const ul = document.querySelector(".list-red");
+	const ul = document.querySelector(".list-red");
 
-  filterUstensil.addEventListener("click", () => {
-    ul.classList.toggle("displayNone");
-    filterUstensil.style.width = "667px";
-    closeAllList("ustensil");
-  });
+	filterUstensil.addEventListener("click", () => {
+		ul.classList.toggle("displayNone");
+		filterUstensil.style.width = "667px";
+		closeAllList("ustensil");
+	});
 
-  searchInList("list-red", "filter_utensil");
+	searchInList("list-red", "filter_utensil");
 }
 
 // function for display list of ingredients
 export async function displayListIngredient() {
-  const filterRecipe = document.querySelector(".filter_recipes");
-  const allIngredient = await fetchIngredientInRecipes();
+	const filterRecipe = document.querySelector(".filter_recipes");
+	const allIngredient = await fetchIngredientInRecipes();
 
-  new List(filterRecipe, allIngredient);
+	new List(filterRecipe, allIngredient);
 
-  const ul = document.querySelector(".list-blue");
+	const ul = document.querySelector(".list-blue");
 
-  filterRecipe.addEventListener("click", () => {
-    ul.classList.toggle("displayNone");
-    filterRecipe.style.width = "667px";
-    closeAllList("ingredient");
-  });
+	filterRecipe.addEventListener("click", () => {
+		ul.classList.toggle("displayNone");
+		filterRecipe.style.width = "667px";
+		closeAllList("ingredient");
+	});
 
-  searchInList("list-blue", "filter_recipes");
+	searchInList("list-blue", "filter_recipes");
 }

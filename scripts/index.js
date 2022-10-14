@@ -5,15 +5,15 @@ import { displayListAppliance, displayListIngredient, displayListUstensil } from
 import { addFilter} from "./modules/searchByFilter.js";
 
 async function main (){
-    const data = await fetchRecipes();
-    data.recipes.forEach(recipe => {
-        new Article(recipe);
-    });
-    search();
-    await displayListAppliance();
-    await displayListIngredient();
-    await displayListUstensil();
-    addFilter();
+	const data = await fetchRecipes();
+	data.recipes.forEach(recipe => {
+		new Article(recipe);
+	});
+	search();
+	await displayListAppliance();
+	await displayListIngredient();
+	await displayListUstensil();
+	addFilter();
 }
 
 main();
