@@ -40,6 +40,7 @@ export function addFilter() {
 
         //add Event listener for delet filter
         newLi.querySelector(".cross").addEventListener("click", (event) => deleteFilter(event, elements, li, parentClassPart[1]));
+        errorMessageIfSearchWithFilter();
       }
     });
   });
@@ -87,7 +88,6 @@ function searchInIngredient(classList, doNotFilter) {
  *  this function display recipes found
  */
 function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
-  const section = document.querySelector("#section_recipes");
   const regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
 
   let value;
@@ -99,8 +99,6 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
     value = htmlElementOrAttribute.innerText.toLowerCase();
     htmlElementOrAttribute.closest("article").classList.toggle("displayNone", !regexp.test(value));
   }
-
-  errorMessageIfSearchWithFilter(section);
 }
 
 /**
