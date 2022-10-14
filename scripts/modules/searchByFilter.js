@@ -30,8 +30,7 @@ export function addFilter() {
 					if (parentClassPart[1].indexOf("blue") > -1) {
 						elements = { ...elements, ...searchInIngredient(parentClassPart[1])};
 					} else {
-						const dataName =
-              parentClassPart[1] === "list-red" ? "data-ustensil" : "data-appliance";
+						const dataName = parentClassPart[1] === "list-red" ? "data-ustensil" : "data-appliance";
 						elements = { ...elements, ...searchInApplianceOrUstensil(parentClassPart[1], false, dataName)};
 					}
 
@@ -69,9 +68,7 @@ function searchInIngredient(classList, doNotFilter) {
 		const articles = document.querySelectorAll("article");
 		articles.forEach((article) => article.classList.remove("displayNone"));
 	} else {
-		ingredients.forEach((ingredient) => {
-			choices.forEach((choice) => textMatch(choice, ingredient));
-		});
+		ingredients.forEach((ingredient) => choices.forEach((choice) => textMatch(choice, ingredient)));
 	}
 	const elements = { ingredients };
 	elements[classList] = choices;
@@ -178,10 +175,8 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 			},
 		};
 
-		const newKeysOrder = [].concat(
-			[classList],
-			Object.keys(workflowObject).filter((item) => item !== classList),
-		);
+		const newKeysOrder = [].concat([classList], Object.keys(workflowObject).filter((item) => item !== classList));
+
 		newKeysOrder.forEach((item) =>
 			workflowObject[item]["method"](item, item === classList, workflowObject[item]["attribute"]));
 	}
