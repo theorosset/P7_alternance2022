@@ -4,32 +4,37 @@ import { errorMessageIfSearchWithFilter } from "./errorMessage.js";
 export function addAndSearchFilter() {
   const allLi = document.querySelectorAll(".list li");
 
-  let elements = { articles: [], ingredients: [], "list-red": [],  "list-green": [],  "list-blue": [] };
-  
+  let elements = {
+    articles: [],
+    ingredients: [],
+    "list-red": [],
+    "list-green": [],
+    "list-blue": [],
+  };
+
   allLi.forEach((li) => {
     li.addEventListener("click", (event) => {
       if (event.target.closest("ul")) {
         const parentClass = event.target.closest("ul").classList.value;
         const parentClassPart = parentClass.split(" ");
-        
+
         const newLi = document.createElement("li");
         newLi.innerHTML = `${li.innerText} <img class="cross" src='./assets/cross.svg' alt='supprimer le choix'>`;
         newLi.classList.add("choice");
 
-        if(parentClassPart[0] === "list" && parentClassPart[1].indexOf("list-") > -1) {
-
+        if (parentClassPart[0] === "list" && parentClassPart[1].indexOf("list-") > -1) {
           addClassOfChoice(parentClassPart[1], newLi);
 
           if (parentClassPart[1].indexOf("blue") > -1) {
             elements = { ...elements, ...searchInIngredient(parentClassPart[1]) };
           } else {
             const dataName = parentClassPart[1] === "list-red" ? "data-ustensil" : "data-appliance";
-            elements = { ...elements, ...searchInApplianceOrUstensil(parentClassPart[1], false,  dataName)};            
+            elements = { ...elements, ...searchInApplianceOrUstensil(parentClassPart[1], false, dataName,) };
           }
-          
+
           li.classList.add("displayNone");
         }
-   
+
         newLi.querySelector(".cross").addEventListener("click", (event) => deleteFilter(event, elements, li, parentClassPart[1]));
         errorMessageIfSearchWithFilter();
       }
@@ -37,12 +42,11 @@ export function addAndSearchFilter() {
   });
 }
 
-
 /**
- * 
- * @param {HTMLClassElement} classList 
- * @param {HTMLElement} li 
- * 
+ *
+ * @param {HTMLClassElement} classList
+ * @param {HTMLElement} li
+ *
  */
 function addClassOfChoice(classList, li) {
   const filterChoice = document.querySelector(".filterChoice");
@@ -55,9 +59,12 @@ function searchInIngredient(classList, doNotFilter) {
   const ingredientsElement = document.querySelectorAll(".ingredient");
   const ingredients = [];
 
-  for(let c = 0; c < ingredientsElement.length; c++){
+  for (let c = 0; c < ingredientsElement.length; c++) {
     const ingredient = ingredientsElement[c];
-    if( doNotFilter || !ingredient.closest("article").classList.contains("displayNone")) {
+    if (
+      doNotFilter ||
+      !ingredient.closest("article").classList.contains("displayNone")
+    ) {
       ingredients.push(ingredient);
     }
   }
@@ -66,13 +73,12 @@ function searchInIngredient(classList, doNotFilter) {
   if (doNotFilter && (!choices[classList] || choices[classList].length === 0)) {
     const articles = document.querySelectorAll("article");
 
-    for(let i = 0; i < articles.length; i++) {
+    for (let i = 0; i < articles.length; i++) {
       const article = articles[i];
       article.classList.remove("displayNone");
     }
-   
   } else {
-    for(let i = 0; i < ingredients.length; i++) {
+    for (let i = 0; i < ingredients.length; i++) {
       const ingredient = ingredients[i];
       for (let j = 0; j < choices.length; j++) {
         const choice = choices[j];
@@ -80,7 +86,6 @@ function searchInIngredient(classList, doNotFilter) {
       }
     }
   }
- 
 
   const elements = { ingredients };
   elements[classList] = choices;
@@ -93,7 +98,7 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
   let value;
 
   if (htmlElementOrAttribute.tagName === "ARTICLE" && dataAttribute) {
-    value = htmlElementOrAttribute.getAttribute(dataAttribute).toLowerCase(); 
+    value = htmlElementOrAttribute.getAttribute(dataAttribute).toLowerCase();
     htmlElementOrAttribute.classList.toggle("displayNone", !regexp.test(value));
   } else {
     value = htmlElementOrAttribute.innerText.toLowerCase();
@@ -104,22 +109,22 @@ function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
 function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
   const articles = [];
   const articlesElements = document.querySelectorAll(".recipe");
-  
-  for(let c = 0; c < articlesElements.length; c++){
+
+  for (let c = 0; c < articlesElements.length; c++) {
     const article = articlesElements[c];
-    if( doNotFilter || !article.classList.contains("displayNone")) {
+    if (doNotFilter || !article.classList.contains("displayNone")) {
       articles.push(article);
     }
   }
   const choices = Array.from(document.querySelectorAll(`.choice.${classList}`));
 
-  if (doNotFilter && (!choices[classList] || choices[classList].length === 0) ) {
-    for(let i = 0; i < articles.length; i++) {
+  if (doNotFilter && (!choices[classList] || choices[classList].length === 0)) {
+    for (let i = 0; i < articles.length; i++) {
       const article = articles[i];
       article.classList.remove("displayNone");
     }
   } else {
-    for(let i = 0; i < articles.length; i++) {
+    for (let i = 0; i < articles.length; i++) {
       const article = articles[i];
       for (let j = 0; j < choices.length; j++) {
         const choice = choices[j];
@@ -128,7 +133,6 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
       }
     }
   }
-  
 
   const elements = { articles };
   elements[classList] = choices;
@@ -136,15 +140,14 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
   return elements;
 }
 
-
 /**
- * 
+ *
  * @param {HTMLElement} li  its li in ul .filterChoice
- * @param {HTMLAllCollection} choices 
- * @param {HTMLBaseElement} ingredientsOrArticles 
+ * @param {HTMLAllCollection} choices
+ * @param {HTMLBaseElement} ingredientsOrArticles
  */
 
-function deleteFilter(event, elements, liInlistOfFilter, classList ) {
+function deleteFilter(event, elements, liInlistOfFilter, classList) {
   let dataName;
 
   if (classList.indexOf("blue") === -1) {
@@ -152,46 +155,51 @@ function deleteFilter(event, elements, liInlistOfFilter, classList ) {
   }
 
   const liInFilterChoice = event.target.closest("li");
- 
-  const indexChoice = elements[classList].findIndex((choice) => choice.innerText === liInFilterChoice.innerText);
+
+  const indexChoice = elements[classList].findIndex(
+    (choice) => choice.innerText === liInFilterChoice.innerText,
+  );
 
   elements[classList].splice(indexChoice, 1);
-  let choices = [...elements["list-red"] ?? [], ...elements["list-green"] ?? [] ,...elements["list-blue"] ?? []];
+  let choices = [
+    ...(elements["list-red"] ?? []),
+    ...(elements["list-green"] ?? []),
+    ...(elements["list-blue"] ?? []),
+  ];
 
   liInFilterChoice.remove();
   liInlistOfFilter.classList.remove("displayNone");
 
   if (choices.length === 0) {
     const articles = document.querySelectorAll("article");
-    for (let i = 0; i < articles.length; i ++) {
+    for (let i = 0; i < articles.length; i++) {
       const article = articles[i];
       article.classList.toggle("displayNone", false);
     }
   } else {
     const workflowObject = {
       "list-green": {
-      "method": searchInApplianceOrUstensil,
-      "attribute": "data-appliance"
+        method: searchInApplianceOrUstensil,
+        attribute: "data-appliance",
       },
       "list-red": {
-      "method": searchInApplianceOrUstensil,
-      "attribute": "data-ustensil"
+        method: searchInApplianceOrUstensil,
+        attribute: "data-ustensil",
       },
       "list-blue": {
-      "method": searchInIngredient,
+        method: searchInIngredient,
       },
-      };
+    };
 
-      const newKeysOrder = [].concat([classList], Object.keys(workflowObject).filter(item => item !== classList));
-      
-      for(let i = 0; i < newKeysOrder.length; i++ ) {
+    const newKeysOrder = [].concat(
+      [classList],
+      Object.keys(workflowObject).filter((item) => item !== classList),
+    );
+
+    for (let i = 0; i < newKeysOrder.length; i++) {
       const item = newKeysOrder[i];
       workflowObject[item]["method"](item, item === classList, workflowObject[item]["attribute"]);
-      }
-
-    // searchInApplianceOrUstensil("list-red", true, "data-ustensil");
-    // searchInApplianceOrUstensil("list-green", false, "data-appliance");
-    // searchInIngredient("list-blue", false);
+    }
   }
   errorMessageIfSearchWithFilter();
 }
