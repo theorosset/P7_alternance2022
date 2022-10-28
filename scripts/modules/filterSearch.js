@@ -69,8 +69,7 @@ function searchInIngredient(classList, doNotFilter) {
 		}
 	}
 	const choices = Array.from(document.querySelectorAll(".choice.list-blue"));
-
-	if (doNotFilter && (!choices[classList] || choices[classList].length === 0)) {
+	if (choices[classList] && choices[classList].length > 0) {
 		const articles = document.querySelectorAll("article");
 
 		for (let i = 0; i < articles.length; i++) {
@@ -118,7 +117,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 	}
 	const choices = Array.from(document.querySelectorAll(`.choice.${classList}`));
 
-	if (doNotFilter && (!choices[classList] || choices[classList].length === 0)) {
+	if (choices[classList] && choices[classList].length > 0) {
 		for (let i = 0; i < articles.length; i++) {
 			const article = articles[i];
 			article.classList.remove("displayNone");
@@ -147,12 +146,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
  */
 
 function deleteFilter(event, elements, liInlistOfFilter, classList) {
-	let dataName;
-
-	if (classList.indexOf("blue") === -1) {
-		dataName = classList === "list-red" ? "data-ustensil" : "data-appliance";
-	}
-
+	
 	const liInFilterChoice = event.target.closest("li");
 
 	const indexChoice = elements[classList].findIndex(
@@ -169,6 +163,13 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 	liInFilterChoice.remove();
 	liInlistOfFilter.classList.remove("displayNone");
 
+	const li = document.querySelectorAll(".choice");
+	const liClassList = [];
+
+	for (let i = 0; i < li.length; i++) {
+		liClassList.push(li[i].classList[1]);
+	}
+	
 	if (choices.length === 0) {
 		const articles = document.querySelectorAll("article");
 		for (let i = 0; i < articles.length; i++) {
@@ -189,18 +190,9 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 				method: searchInIngredient,
 			},
 		};
-		let newKeysOrder = [];
-		newKeysOrder.push(classList);
-
-		for(let i = 0;  i < Object.keys(workflowObject).length; i++) {
-			const item = Object.keys(workflowObject)[i];
-			if (item !== classList) {
-				newKeysOrder.push(item);
-			}
-		}
-		for (let i = 0; i < newKeysOrder.length; i++) {
-			const item = newKeysOrder[i];
-			workflowObject[item]["method"](item, item === classList, workflowObject[item]["attribute"]);
+		for (let i = 0; i < liClassList.length; i++) {
+			const classListValue = liClassList[i];
+			workflowObject[classListValue]["method"](classListValue, i === 0, workflowObject[classListValue]["attribute"]);
 		}
 	}
 	errorMessageIfSearchWithFilter();
