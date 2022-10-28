@@ -64,7 +64,7 @@ function searchInIngredient(classList, doNotFilter) {
 
 	const choices = Array.from(document.querySelectorAll(".choice.list-blue"));
 
-	if (doNotFilter && (!choices[classList] || choices[classList].length === 0)) {
+	if (choices[classList] && choices[classList].length > 0) {
 		const articles = document.querySelectorAll("article");
 		articles.forEach((article) => article.classList.remove("displayNone"));
 	} else {
@@ -110,7 +110,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 		.filter((article) => doNotFilter || !article.classList.contains("displayNone"));
 
 	const choices = Array.from(document.querySelectorAll(`.choice.${classList}`));
-	if (doNotFilter && (!choices[classList] || choices[classList].length === 0)) {
+	if (choices[classList] && choices[classList].length > 0) {
 		articles.forEach((article) => article.classList.remove("displayNone"));
 	} else {
 		choices.forEach((choice) => {
@@ -137,11 +137,6 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
  */
 
 function deleteFilter(event, elements, liInlistOfFilter, classList) {
-	let dataName;
-
-	if (classList.indexOf("blue") === -1) {
-		dataName = classList === "list-red" ? "data-ustensil" : "data-appliance";
-	}
 
 	const liInFilterChoice = event.target.closest("li");
 
@@ -156,6 +151,10 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 
 	liInFilterChoice.remove();
 	liInlistOfFilter.classList.remove("displayNone");
+
+	const li = document.querySelectorAll(".choice");
+	const liClassList = [];
+	li.forEach(item => liClassList.push(item.classList[1]));
 
 	if (choices.length === 0) {
 		const articles = document.querySelectorAll("article");
@@ -175,10 +174,8 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 			},
 		};
 
-		const newKeysOrder = [].concat([classList], Object.keys(workflowObject).filter((item) => item !== classList));
-
-		newKeysOrder.forEach((item) =>
-			workflowObject[item]["method"](item, item === classList, workflowObject[item]["attribute"]));
+		liClassList.forEach((item, i) =>{
+			workflowObject[item]["method"](item, i === 0, workflowObject[item]["attribute"]);});
 	}
 	errorMessageIfSearchWithFilter();
 }
