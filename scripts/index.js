@@ -9,9 +9,10 @@ import { addAndSearchFilter } from "./modules/filterSearch.js";
 
 async function main() {
 	const data = await fetchRecipes();
-	data.recipes.forEach((recipe) => {
+	for (let i = 0; i < data.recipes.length; i++ ) {
+		const recipe = data.recipes[i];
 		new Article(recipe);
-	});
+	}
 	search();
 	await displayListIngredient();
 	await displayListUstensil();

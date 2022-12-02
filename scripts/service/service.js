@@ -38,7 +38,6 @@ export async function fetchApplianceInRecipes(){
 		}).then((data)=>{
 			let arrayAppliance = [];
 			data.recipes.forEach(recipe => arrayAppliance.push(recipe.appliance));
-			console.log(arrayAppliance);
 			arrayAppliance = [...new Set(arrayAppliance)];
 			return arrayAppliance;
 		});
