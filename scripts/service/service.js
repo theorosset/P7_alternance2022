@@ -1,11 +1,11 @@
-
+//get all data
 export async function fetchRecipes() {
 	return await fetch("./recipes.json")
 		.then((res) => {
 			return res.json();
 		});
 }
-
+// get ingredients data
 export async function fetchIngredientInRecipes(){
 	return await fetch("./recipes.json")
 		.then((res) => {
@@ -17,8 +17,7 @@ export async function fetchIngredientInRecipes(){
 			return arrayIngredients;
 		});
 }
-
-
+// get ustensils data
 export async function fetchUstensilsInRecipes(){
 	return await fetch("./recipes.json")
 		.then((res) => {
@@ -30,7 +29,7 @@ export async function fetchUstensilsInRecipes(){
 			return arrayUstensils;
 		});
 }
-
+//get appliance data
 export async function fetchApplianceInRecipes(){
 	return await fetch("./recipes.json")
 		.then((res) => {
@@ -38,7 +37,6 @@ export async function fetchApplianceInRecipes(){
 		}).then((data)=>{
 			let arrayAppliance = [];
 			data.recipes.forEach(recipe => arrayAppliance.push(recipe.appliance));
-			console.log(arrayAppliance);
 			arrayAppliance = [...new Set(arrayAppliance)];
 			return arrayAppliance;
 		});

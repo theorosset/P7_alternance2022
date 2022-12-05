@@ -89,6 +89,5 @@ export class List{
 			ul.appendChild(li);
 		}
 	}
-
 }
  
