@@ -9,11 +9,11 @@ async function main (){
 	data.recipes.forEach(recipe => {
 		new Article(recipe);
 	});
-	search();
 	await displayListAppliance();
 	await displayListIngredient();
 	await displayListUstensil();
 	addFilter();
+	search();
 }
 
 main();

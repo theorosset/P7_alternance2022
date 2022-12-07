@@ -84,11 +84,15 @@ function searchInIngredient(classList, doNotFilter) {
  *
  *  this function display recipes found
  */
-function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
-	const regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
-
+export function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
+	let regexp;
+	if (choice.innerText) {
+		regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
+	} else {
+		regexp = new RegExp(choice.toLowerCase(), "gi");
+	}
 	let value;
-
+	
 	if (htmlElementOrAttribute.tagName === "ARTICLE" && dataAttribute) {
 		value = htmlElementOrAttribute.getAttribute(dataAttribute).toLowerCase();
 		htmlElementOrAttribute.classList.toggle("displayNone", !regexp.test(value));

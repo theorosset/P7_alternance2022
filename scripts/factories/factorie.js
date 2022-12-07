@@ -35,7 +35,6 @@ export class Article {
 		divRecipeTitleTime.classList.add("recipe-title-time");
 		divRecipLogic.classList.add("recipe-logic");
     
-
 		//set attribut
 		a.setAttribute("src", "#");
 		article.setAttribute("data-ustensil", ustensils);
