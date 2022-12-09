@@ -1,5 +1,5 @@
 import { displayErrorMessage } from "./errorMessage.js";
-import { updateRecipes } from "./search_bar.js";
+import { updateRecipes } from "./searchBar.js";
 //add filter in section filterChoice
 export function addAndSearchFilter() {
 	const allLi = document.querySelectorAll(".list li");

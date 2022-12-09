@@ -1,4 +1,3 @@
-
 export function searchInListOfFilter(input, list) {
 	const allLI = document.querySelectorAll(`.${list} li`);
   

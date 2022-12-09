@@ -1,7 +1,7 @@
-import { List } from "../factories/factorie.js";
-import { fetchUstensilsInRecipes } from "../service/service.js";
-import { closeAllList } from "./closeAllList.js";
-import { searchInListOfFilter } from "./searchInFilterList.js";
+import { List } from "../../factories/factorie.js";
+import { fetchUstensilsInRecipes } from "../../service/service.js";
+import { closeAllList } from "../closeAllList.js";
+import { searchInListOfFilter } from "../searchInFilterList.js";
 
 // function for display list of ustensil
 export async function displayListUstensil() {
