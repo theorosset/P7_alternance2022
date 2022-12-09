@@ -1,23 +1,61 @@
-import { errorMessageIfSearchWithBar } from "./errorMessage.js";
+import { displayErrorMessage } from "./errorMessage.js";
+import { getRecipesMatch } from "./searchByFilter.js";
+
+export function updateRecipes(searchValue) {
+	const articles = Array.from(document.querySelectorAll(".recipe"));
+	let choices = Array.from(document.querySelectorAll(".choice"));
+	let articlesWithoutDisplayNone = [];
+
+	if (choices.length === 0) {
+		for(let i = 0; i < articles.length; i++) {
+			const article = articles[i];
+			article.classList.toggle("displayNone", false);
+		}
+	} else {
+		for(let i = 0; i < choices.length; i++) {
+			const choice = choices[i];
+			for(let i = 0; i < articles.length; i++) {
+				const article = articles[i];
+				getRecipesMatch(choice, article);
+			}
+		}
+	}
+	for(let i = 0; i < articles.length; i++) {
+		const article = articles[i];
+		if(!article.classList.contains("displayNone")) {
+			articlesWithoutDisplayNone.push(article);
+		}
+	}
+	if (String(searchValue).trim() === "undefined") {
+		articlesWithoutDisplayNone = [];
+		for(let i = 0; i < articles.length; i++) {
+			const article = articles[i];
+			if(!article.classList.contains("displayNone")) {
+				articlesWithoutDisplayNone.push(article);
+			}
+		}
+	} else {
+		for (let i = 0; i < [searchValue].length; i++) {
+			const choice = [searchValue][i];
+			for (let i = 0; i < articlesWithoutDisplayNone.length; i++ ) {
+				const article = articlesWithoutDisplayNone[i];
+				getRecipesMatch(choice, article);
+			}
+		}
+	}
+}
+
 
 export function search() {
 	const input = document.querySelector(".search_bar");
-	const h2All = document.querySelectorAll(".recipe-title-time h2");
-	const articles = document.querySelectorAll(".recipe");
-	const section = document.querySelector("#section_recipes");
 
 	input.addEventListener("input", (e) => {
-		const valueSearchBar = input.value.split(" ").join("").toLowerCase();
-		for (let i = 0; i < h2All.length; i++) {
-			const h2 = h2All[i];
-			const article = articles[i];
-			if (!h2.innerText.split(" ").join("").toLowerCase().includes(valueSearchBar) && valueSearchBar.length >= 3) 
-			{
-				article.remove();
-			} else {
-				document.querySelector("#section_recipes").appendChild(article);
-			}
-			errorMessageIfSearchWithBar(section);
+		const searchValue = e.target.value.toLowerCase();
+		if (searchValue.length > 2) {
+			updateRecipes(searchValue);
+		} else if (searchValue.length === 0) {
+			updateRecipes();
 		}
+		displayErrorMessage();
 	});
 }

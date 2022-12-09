@@ -1,5 +1,5 @@
-import { errorMessageIfSearchWithFilter } from "./errorMessage.js";
-
+import { displayErrorMessage } from "./errorMessage.js";
+import { updateRecipes } from "./search_bar.js";
 //add filter in section filterChoice
 export function addAndSearchFilter() {
 	const allLi = document.querySelectorAll(".list li");
@@ -36,7 +36,7 @@ export function addAndSearchFilter() {
 				}
 
 				newLi.querySelector(".cross").addEventListener("click", (event) => deleteFilter(event, elements, li, parentClassPart[1]));
-				errorMessageIfSearchWithFilter();
+				displayErrorMessage();
 			}
 		});
 	});
@@ -61,10 +61,7 @@ function searchInIngredient(classList, doNotFilter) {
 
 	for (let c = 0; c < ingredientsElement.length; c++) {
 		const ingredient = ingredientsElement[c];
-		if (
-			doNotFilter ||
-      !ingredient.closest("article").classList.contains("displayNone")
-		) {
+		if (doNotFilter || !ingredient.closest("article").classList.contains("displayNone")) {
 			ingredients.push(ingredient);
 		}
 	}
@@ -81,7 +78,7 @@ function searchInIngredient(classList, doNotFilter) {
 			const ingredient = ingredients[i];
 			for (let j = 0; j < choices.length; j++) {
 				const choice = choices[j];
-				textMatch(choice, ingredient);
+				getRecipesMatch(choice, ingredient);
 			}
 		}
 	}
@@ -92,8 +89,13 @@ function searchInIngredient(classList, doNotFilter) {
 	return elements;
 }
 
-function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
-	const regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
+export function getRecipesMatch(choice, htmlElementOrAttribute, dataAttribute) {
+	let regexp;
+	if (choice.innerText) {
+		 regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
+	} else {
+		regexp = new RegExp(choice.toLowerCase(), "gi");
+	}
 	let value;
 
 	if (htmlElementOrAttribute.tagName === "ARTICLE" && dataAttribute) {
@@ -127,7 +129,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 			const article = articles[i];
 			for (let j = 0; j < choices.length; j++) {
 				const choice = choices[j];
-				textMatch(choice, article, dataSet);
+				getRecipesMatch(choice, article, dataSet);
 			}
 		}
 	}
@@ -146,7 +148,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
  */
 
 function deleteFilter(event, elements, liInlistOfFilter, classList) {
-	
+	const searchBar = document.querySelector(".search_bar");
 	const liInFilterChoice = event.target.closest("li");
 
 	const indexChoice = elements[classList].findIndex(
@@ -171,10 +173,14 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 	}
 	
 	if (choices.length === 0) {
-		const articles = document.querySelectorAll("article");
-		for (let i = 0; i < articles.length; i++) {
-			const article = articles[i];
-			article.classList.toggle("displayNone", false);
+		if (searchBar.value) {
+			updateRecipes(searchBar.value);
+		} else {
+			const articles = document.querySelectorAll("article");
+			for (let i = 0; i < articles.length; i++) {
+				const article = articles[i];
+				article.classList.toggle("displayNone", false);
+			}
 		}
 	} else {
 		const workflowObject = {
@@ -194,6 +200,7 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 			const classListValue = liClassList[i];
 			workflowObject[classListValue]["method"](classListValue, i === 0, workflowObject[classListValue]["attribute"]);
 		}
+		updateRecipes(searchBar.value);
 	}
-	errorMessageIfSearchWithFilter();
+	displayErrorMessage();
 }
