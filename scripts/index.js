@@ -1,6 +1,6 @@
 import { Article } from "./factories/factorie.js";
 import { fetchRecipes } from "./service/service.js";
-import { search } from "./modules/search_bar.js";
+import { search } from "./modules/searchBar.js";
 import { displayListAppliance, displayListIngredient, displayListUstensil } from "./modules/displayFilterList.js";
 import { addFilter} from "./modules/searchByFilter.js";
 
