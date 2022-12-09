@@ -1,6 +1,6 @@
 import { List } from "../factories/factorie.js";
 import { fetchApplianceInRecipes, fetchIngredientInRecipes, fetchUstensilsInRecipes } from "../service/service.js";
-import { closeAllList } from "./closeFilterList.js";
+import { closeAllList } from "./close_filter_list.js";
 import { searchInList } from "./searchInFilterList.js";
 
 // function for display list of ingredients
@@ -14,6 +14,7 @@ export async function displayListAppliance() {
 
 	filterDevice.addEventListener("click", () => {
 		ul.classList.toggle("displayNone");
+		console.log(document);
 		filterDevice.style.width = "667px";
 		closeAllList("device");
 	});

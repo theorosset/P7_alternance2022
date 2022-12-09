@@ -1,5 +1,5 @@
-import { errorMessageIfSearchWithFilter } from "./errorMessage.js";
-
+import { displayErrorMessage } from "./errorMessage.js";
+import { updateRecipes } from "./search_bar.js";
 //add filter in section filterChoice
 export function addFilter() {
 	const allLi = document.querySelectorAll(".list li");
@@ -39,7 +39,7 @@ export function addFilter() {
 
 				//add Event listener for delet filter
 				newLi.querySelector(".cross").addEventListener("click", (event) => deleteFilter(event, elements, li, parentClassPart[1]));
-				errorMessageIfSearchWithFilter();
+				displayErrorMessage();
 			}
 		});
 	});
@@ -68,7 +68,7 @@ function searchInIngredient(classList, doNotFilter) {
 		const articles = document.querySelectorAll("article");
 		articles.forEach((article) => article.classList.remove("displayNone"));
 	} else {
-		ingredients.forEach((ingredient) => choices.forEach((choice) => textMatch(choice, ingredient)));
+		ingredients.forEach((ingredient) => choices.forEach((choice) => getRecipesMatch(choice, ingredient)));
 	}
 	const elements = { ingredients };
 	elements[classList] = choices;
@@ -84,15 +84,14 @@ function searchInIngredient(classList, doNotFilter) {
  *
  *  this function display recipes found
  */
-export function textMatch(choice, htmlElementOrAttribute, dataAttribute) {
+export function getRecipesMatch(choice, htmlElementOrAttribute, dataAttribute) {
 	let regexp;
-	if (choice.innerText) {
+	if (typeof choice === "object") {
 		regexp = new RegExp(choice.innerText.toLowerCase(), "gi");
 	} else {
 		regexp = new RegExp(choice.toLowerCase(), "gi");
 	}
 	let value;
-	
 	if (htmlElementOrAttribute.tagName === "ARTICLE" && dataAttribute) {
 		value = htmlElementOrAttribute.getAttribute(dataAttribute).toLowerCase();
 		htmlElementOrAttribute.classList.toggle("displayNone", !regexp.test(value));
@@ -119,7 +118,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 	} else {
 		choices.forEach((choice) => {
 			articles.forEach((article) => {
-				textMatch(choice, article, dataSet);
+				getRecipesMatch(choice, article, dataSet);
 			});
 		});
 	}
@@ -141,6 +140,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
  */
 
 function deleteFilter(event, elements, liInlistOfFilter, classList) {
+	const searchBar = document.querySelector(".search_bar");
 
 	const liInFilterChoice = event.target.closest("li");
 
@@ -161,8 +161,12 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 	li.forEach(item => liClassList.push(item.classList[1]));
 
 	if (choices.length === 0) {
-		const articles = document.querySelectorAll("article");
-		articles.forEach((article) => article.classList.toggle("displayNone", false));
+		if(searchBar.value) {
+			updateRecipes(searchBar.value);
+		} else {
+			const articles = document.querySelectorAll("article");
+			articles.forEach((article) => article.classList.toggle("displayNone", false));
+		}
 	} else {
 		const workflowObject = {
 			"list-green": {
@@ -178,8 +182,10 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 			},
 		};
 
-		liClassList.forEach((item, i) =>{
-			workflowObject[item]["method"](item, i === 0, workflowObject[item]["attribute"]);});
+		liClassList.forEach((item, i) => {
+			workflowObject[item]["method"](item, i === 0, workflowObject[item]["attribute"]);
+		 });
+		 updateRecipes(searchBar.value);
 	}
-	errorMessageIfSearchWithFilter();
+	displayErrorMessage();
 }
