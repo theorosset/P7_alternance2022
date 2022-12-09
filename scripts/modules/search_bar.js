@@ -16,8 +16,7 @@ export function updateRecipes(searchValue) {
 	}
 	articles = Array.from(document.querySelectorAll(".recipe"))
 		.filter((article) => !article.classList.contains("displayNone"));
-		
-	// ici viens supprimer la recherche par filtre
+
 	if (String(searchValue).trim() === "undefined") {
 		articles = Array.from(document.querySelectorAll(".recipe"))
 			.filter((article) => !article.classList.contains("displayNone"));
