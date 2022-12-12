@@ -12,7 +12,6 @@ async function main() {
 	for (let i = 0; i < data.recipes.length; i++ ) {
 		const recipe = data.recipes[i];
 		new Article(recipe);
-		console.log("oui");
 	}
 	search();
 	await displayListIngredient();
