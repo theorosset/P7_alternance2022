@@ -14,7 +14,6 @@ export async function displayListAppliance() {
 
 	filterDevice.addEventListener("click", () => {
 		ul.classList.toggle("displayNone");
-		console.log(document);
 		filterDevice.style.width = "667px";
 		closeAllList("device");
 	});

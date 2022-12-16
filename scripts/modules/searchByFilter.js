@@ -185,7 +185,10 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 		liClassList.forEach((item, i) => {
 			workflowObject[item]["method"](item, i === 0, workflowObject[item]["attribute"]);
 		 });
-		 updateRecipes(searchBar.value);
+		 
+		 if (searchBar.value) {
+			 updateRecipes(searchBar.value);
+		 }
 	}
 	displayErrorMessage();
 }
