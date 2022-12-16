@@ -1,11 +1,16 @@
 import { displayErrorMessage } from "./errorMessage.js";
 import { getRecipesMatch } from "./searchByFilter.js";
 
+/**
+ * this function update recipes in two time 
+ * @param {string} searchValue
+ */
 export function updateRecipes(searchValue) {
 	const articles = Array.from(document.querySelectorAll(".recipe"));
 	let choices = Array.from(document.querySelectorAll(".choice"));
 	let articlesWithoutDisplayNone = [];
 
+	//one time check choice
 	if (choices.length === 0) {
 		for(let i = 0; i < articles.length; i++) {
 			const article = articles[i];
@@ -26,6 +31,7 @@ export function updateRecipes(searchValue) {
 			articlesWithoutDisplayNone.push(article);
 		}
 	}
+	//two time check search bar value
 	if (String(searchValue).trim() === "undefined" || String(searchValue).trim() === "" ) {
 		articlesWithoutDisplayNone = [];
 		for(let i = 0; i < articles.length; i++) {
@@ -45,7 +51,9 @@ export function updateRecipes(searchValue) {
 	}
 }
 
-
+/**
+ * function search with search bar
+ */
 export function search() {
 	const input = document.querySelector(".search_bar");
 
