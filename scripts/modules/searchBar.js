@@ -9,25 +9,49 @@ export function updateRecipes(searchValue) {
 	let choices = Array.from(document.querySelectorAll(".choice"));
 	let articles = Array.from(document.querySelectorAll(".recipe"));
 
-	//one time check choice
+	updateRecipesByFilter(choices, articles);
+
+	articles = Array.from(document.querySelectorAll(".recipe"))
+		.filter((article) => !article.classList.contains("displayNone"));
+
+
+	if (String(searchValue).trim() === "") {
+		articles.forEach(article => article.classList.toggle("displayNone", false));
+	} else {
+		articles = Array.from(document.querySelectorAll(".recipe"));
+		[searchValue].forEach((choice) => {
+			articles.forEach((article) => {
+				getRecipesMatch(choice, article);
+			});
+		});
+		updateRecipesByFilter(choices, articles);
+	}
+}
+
+/**
+ * this function return data-attribute use for search
+ * @param { Object } choice 
+ * @returns { String } return data attribute
+ */
+function getDataName(choice) {
+	let dataAttribute = "";
+	if (typeof choice === "object") {
+		if(choice.classList.contains("list-red") || choice.classList.contains("list-green")) {
+			dataAttribute = choice.classList.contains("list-red") ? "data-ustensil" : "data-appliance";
+		}
+	}
+	return dataAttribute;
+}
+
+function updateRecipesByFilter(choices, articles) {
 	if (choices.length === 0) {
 		articles.forEach((article) => article.classList.toggle("displayNone", false));
 	} else {
 		choices.forEach((choice) => {
+			articles = Array.from(document.querySelectorAll(".recipe"))
+				.filter((article) => !article.classList.contains("displayNone"));
 			articles.forEach((article) => {
-				articles = Array.from(document.querySelectorAll(".recipe"))
-					.filter((article) => !article.classList.contains("displayNone"));
-
-				getRecipesMatch(choice, article);
-			});
-		});
-	}
-
-	//two time check search bar value
-	if (String(searchValue).trim()) {
-		[searchValue].forEach((choice) => {
-			articles.forEach((article) => {
-				getRecipesMatch(choice, article);
+				getRecipesMatch(choice, article, getDataName(choice));
 			});
 		});
 	}
@@ -44,7 +68,7 @@ export function search() {
 		if (searchValue.length > 2) {
 			updateRecipes(searchValue);
 		} else if (searchValue.length === 0) {
-			updateRecipes();
+			updateRecipes("");
 		}
 		displayErrorMessage();
 	});
