@@ -47,8 +47,6 @@ export function updateRecipes(searchValue) {
 				articlesWithoutDisplayNone.push(article);
 			}
 		}
-		// articles = Array.from(document.querySelectorAll(".recipe"))
-		// 	.filter((article) => !article.classList.contains("displayNone"));
 
 		if (choices.length === 0) {
 			for(let i = 0; i < articlesWithoutDisplayNone.length; i++) {
@@ -76,7 +74,7 @@ function getDataName(choice) {
 	return dataAttribute;
 }
 
-//update
+//update recipes by filter
 function updateRecipesByFilter(choices, articles) {
 	for (let i = 0; i < choices.length; i++) {
 		let articlesWithoutDisplayNone = [];
