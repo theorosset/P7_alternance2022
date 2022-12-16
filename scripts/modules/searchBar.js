@@ -9,21 +9,24 @@ export function updateRecipes(searchValue) {
 	let choices = Array.from(document.querySelectorAll(".choice"));
 	let articles = Array.from(document.querySelectorAll(".recipe"));
 
+	articles.forEach(article => article.classList.toggle("displayNone", false));
+	
 	updateRecipesByFilter(choices, articles);
 
 	articles = Array.from(document.querySelectorAll(".recipe"))
 		.filter((article) => !article.classList.contains("displayNone"));
 
-
-	if (String(searchValue).trim() === "") {
-		articles.forEach(article => article.classList.toggle("displayNone", false));
-	} else {
+	if (String(searchValue).trim() !== "") {
 		articles = Array.from(document.querySelectorAll(".recipe"));
 		[searchValue].forEach((choice) => {
 			articles.forEach((article) => {
 				getRecipesMatch(choice, article);
 			});
 		});
+
+		articles = Array.from(document.querySelectorAll(".recipe"))
+			.filter((article) => !article.classList.contains("displayNone"));
+
 		updateRecipesByFilter(choices, articles);
 	}
 }
@@ -43,6 +46,7 @@ function getDataName(choice) {
 	return dataAttribute;
 }
 
+//update
 function updateRecipesByFilter(choices, articles) {
 	if (choices.length === 0) {
 		articles.forEach((article) => article.classList.toggle("displayNone", false));
