@@ -200,7 +200,9 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 			const classListValue = liClassList[i];
 			workflowObject[classListValue]["method"](classListValue, i === 0, workflowObject[classListValue]["attribute"]);
 		}
-		updateRecipes(searchBar.value);
+		if (searchBar.value) {
+			updateRecipes(searchBar.value);
+		}
 	}
 	displayErrorMessage();
 }

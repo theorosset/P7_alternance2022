@@ -26,7 +26,7 @@ export function updateRecipes(searchValue) {
 			articlesWithoutDisplayNone.push(article);
 		}
 	}
-	if (String(searchValue).trim() === "undefined") {
+	if (String(searchValue).trim() === "undefined" || String(searchValue).trim() === "" ) {
 		articlesWithoutDisplayNone = [];
 		for(let i = 0; i < articles.length; i++) {
 			const article = articles[i];
