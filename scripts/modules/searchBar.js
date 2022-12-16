@@ -34,22 +34,29 @@ export function updateRecipes(searchValue) {
 	if (String(searchValue).trim() !== "") {
 		for(let i = 0; i < [searchValue].length; i++) {
 			const choice = [searchValue][i];
-			for(let i = 0; i < articles.length; i++) {
-				const article = articles[i];
+			for(let j = 0; j < articles.length; j++) {
+				const article = articles[j];
 				getRecipesMatch(choice, article);
 			}
 		}
+		let	articlesWithoutDisplayNone = [];
 
-		articles = Array.from(document.querySelectorAll(".recipe"))
-			.filter((article) => !article.classList.contains("displayNone"));
+		for(let i = 0; i < articles.length; i++) {
+			const article = articles[i];
+			if (!article.classList.contains("displayNone")) {
+				articlesWithoutDisplayNone.push(article);
+			}
+		}
+		// articles = Array.from(document.querySelectorAll(".recipe"))
+		// 	.filter((article) => !article.classList.contains("displayNone"));
 
 		if (choices.length === 0) {
-			for(let i = 0; i < articles.length; i++) {
-				const article = articles[i];
+			for(let i = 0; i < articlesWithoutDisplayNone.length; i++) {
+				const article = articlesWithoutDisplayNone[i];
 				article.classList.toggle("displayNone", false);
 			}
 		} else {
-			updateRecipesByFilter(choices, articles);
+			updateRecipesByFilter(choices, articlesWithoutDisplayNone);
 		}
 	}
 }
@@ -71,18 +78,17 @@ function getDataName(choice) {
 
 //update
 function updateRecipesByFilter(choices, articles) {
-	let articlesWithoutDisplayNone = [];
-
 	for (let i = 0; i < choices.length; i++) {
+		let articlesWithoutDisplayNone = [];
 		const choice = choices[i];
-		for (let i = 0; i < articles.length; i++) {
-			const article = articles[i];
+		for (let j = 0; j < articles.length; j++) {
+			const article = articles[j];
 			if (!article.classList.contains("displayNone")) {
 				articlesWithoutDisplayNone.push(article);
 			}
 		}
-		for(let i = 0; i < articlesWithoutDisplayNone.length; i++) {
-			const articleWithoutDisplayNone =  articlesWithoutDisplayNone[i];
+		for(let k = 0; k < articlesWithoutDisplayNone.length; k++) {
+			const articleWithoutDisplayNone =  articlesWithoutDisplayNone[k];
 			getRecipesMatch(choice, articleWithoutDisplayNone, getDataName(choice));
 		}
 	}
