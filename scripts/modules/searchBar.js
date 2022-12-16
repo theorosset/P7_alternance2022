@@ -24,10 +24,7 @@ export function updateRecipes(searchValue) {
 	}
 
 	//two time check search bar value
-	if (String(searchValue).trim() === "undefined" || String(searchValue).trim() === "" ) {
-		articles = Array.from(document.querySelectorAll(".recipe"))
-			.filter((article) => !article.classList.contains("displayNone"));
-	} else {
+	if (String(searchValue).trim()) {
 		[searchValue].forEach((choice) => {
 			articles.forEach((article) => {
 				getRecipesMatch(choice, article);
