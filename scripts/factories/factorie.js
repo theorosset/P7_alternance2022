@@ -59,11 +59,12 @@ export class Article {
 		divRecipeIngredient.appendChild(divRecipLogic);
 		divRecipLogic.appendChild(pRecip);
 
-		ingredients.forEach(({ ingredient, quantity, unit }) => {
+		for(let i = 0; i < ingredients.length; i++) {
+			const { ingredient, quantity, unit } = ingredients[i];
 			const p = document.createElement("p");
 			p.innerHTML = `<strong>${ingredient}</strong>: ${quantity ? quantity : ""}${unit ? unit : ""}`;
 			divIngredient.appendChild(p);
-		});
+		}
 	}
 }
 export class List{

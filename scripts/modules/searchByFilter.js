@@ -11,8 +11,8 @@ export function addAndSearchFilter() {
 		"list-green": [],
 		"list-blue": [],
 	};
-
-	allLi.forEach((li) => {
+	for(let i = 0; i < allLi.length; i++) {
+		const li = allLi[i];
 		li.addEventListener("click", (event) => {
 			if (event.target.closest("ul")) {
 				const parentClass = event.target.closest("ul").classList.value;
@@ -39,7 +39,7 @@ export function addAndSearchFilter() {
 				displayErrorMessage();
 			}
 		});
-	});
+	};
 }
 
 /**
