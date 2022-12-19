@@ -17,20 +17,20 @@ export function closeAllList(filter) {
 	case "ustensil":
 		device.classList.add("displayNone");
 		ingredient.classList.add("displayNone");
-		filterDevice.style.width = "223px";
-		filterIngredient.style.width = "223px";
+		filterDevice.classList.remove("filterWitdh");
+		filterIngredient.classList.remove("filterWitdh");
 		break;
 	case "device":
 		ingredient.classList.add("displayNone");
 		ustensil.classList.add("displayNone");
-		filterUstensil.style.width = "223px";
-		filterIngredient.style.width = "223px";
+		filterUstensil.classList.remove("filterWitdh");
+		filterIngredient.classList.remove("filterWitdh");
 		break;
 	case "ingredient":
 		device.classList.add("displayNone");
 		ustensil.classList.add("displayNone");
-		filterDevice.style.width = "223px";
-		filterUstensil.style.width = "223px";
+		filterDevice.classList.remove("filterWitdh");
+		filterUstensil.classList.remove("filterWitdh");
 		break;
 	}
 }

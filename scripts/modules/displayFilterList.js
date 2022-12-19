@@ -14,7 +14,7 @@ export async function displayListAppliance() {
 
 	filterDevice.addEventListener("click", () => {
 		ul.classList.toggle("displayNone");
-		filterDevice.style.width = "667px";
+		filterDevice.classList.add("filterWitdh");
 		closeAllList("device");
 	});
 
@@ -32,7 +32,7 @@ export async function displayListUstensil() {
 
 	filterUstensil.addEventListener("click", () => {
 		ul.classList.toggle("displayNone");
-		filterUstensil.style.width = "667px";
+		filterUstensil.classList.add("filterWitdh");
 		closeAllList("ustensil");
 	});
 
@@ -50,7 +50,7 @@ export async function displayListIngredient() {
 
 	filterRecipe.addEventListener("click", () => {
 		ul.classList.toggle("displayNone");
-		filterRecipe.style.width = "667px";
+		filterRecipe.classList.add("filterWitdh");
 		closeAllList("ingredient");
 	});
 
