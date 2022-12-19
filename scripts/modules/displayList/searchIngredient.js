@@ -11,7 +11,7 @@ export async function displayListIngredient() {
 	const ul = document.querySelector(".list-blue");
 	filterRecipe.addEventListener("click", () => {
 		ul.classList.toggle("displayNone");
-		filterRecipe.style.width = "667px";
+		filterRecipe.classList.add("filterWidth");
 		closeAllList("ingredient");
 	});
 	searchInListOfFilter(filterRecipe, "list-blue");
