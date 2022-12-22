@@ -1,5 +1,6 @@
 import { displayErrorMessage } from "./errorMessage.js";
 import { getRecipesMatch } from "./searchByFilter.js";
+import { updateAllList } from "./updateFilterList.js";
 
 /**
  * this function update recipes in two time 
@@ -74,6 +75,7 @@ export function search() {
 		} else if (searchValue.length === 0) {
 			updateRecipes("");
 		}
+		updateAllList();
 		displayErrorMessage();
 	});
 }

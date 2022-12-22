@@ -1,3 +1,5 @@
+import { updateAllList } from "./updateFilterList.js";
+
 export function searchInList(classList, filter) {
 	const allLi = Array.from(document.querySelectorAll(`div .${classList} li`));
 	const input = document.querySelector(`.${filter}`);
@@ -11,5 +13,6 @@ export function searchInList(classList, filter) {
 				document.querySelector(`div .${classList}`).appendChild(li);
 			}
 		});
+		updateAllList();
 	});
 }

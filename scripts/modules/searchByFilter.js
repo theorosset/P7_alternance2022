@@ -1,5 +1,7 @@
 import { displayErrorMessage } from "./errorMessage.js";
 import { updateRecipes } from "./searchBar.js";
+import { updateAllList } from "./updateFilterList.js"; 
+
 //add filter in section filterChoice
 export function addFilter() {
 	const allLi = document.querySelectorAll(".list li");
@@ -33,10 +35,7 @@ export function addFilter() {
 						const dataName = parentClassPart[1] === "list-red" ? "data-ustensil" : "data-appliance";
 						elements = { ...elements, ...searchInApplianceOrUstensil(parentClassPart[1], false, dataName)};
 					}
-
-					li.classList.add("displayNone");
 				}
-
 				//add Event listener for delet filter
 				newLi.querySelector(".cross").addEventListener("click", (event) => deleteFilter(event, elements, li, parentClassPart[1]));
 				displayErrorMessage();
@@ -70,9 +69,10 @@ function searchInIngredient(classList, doNotFilter) {
 	} else {
 		ingredients.forEach((ingredient) => choices.forEach((choice) => getRecipesMatch(choice, ingredient)));
 	}
+	updateAllList();
 	const elements = { ingredients };
 	elements[classList] = choices;
-
+	
 	return elements;
 }
 
@@ -122,7 +122,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 			});
 		});
 	}
-
+	updateAllList();
 	const elements = { articles };
 	elements[classList] = choices;
 
@@ -154,7 +154,6 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 	];
 
 	liInFilterChoice.remove();
-	liInlistOfFilter.classList.remove("displayNone");
 
 	const li = document.querySelectorAll(".choice");
 	const liClassList = [];
@@ -163,9 +162,11 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 	if (choices.length === 0) {
 		if(searchBar.value) {
 			updateRecipes(searchBar.value);
+			updateAllList();
 		} else {
 			const articles = document.querySelectorAll("article");
 			articles.forEach((article) => article.classList.toggle("displayNone", false));
+			updateAllList();
 		}
 	} else {
 		const workflowObject = {
