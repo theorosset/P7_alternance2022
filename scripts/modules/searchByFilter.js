@@ -1,5 +1,7 @@
 import { displayErrorMessage } from "./errorMessage.js";
 import { updateRecipes } from "./searchBar.js";
+import { updateAllList } from "./updateFilterList.js";
+
 //add filter in section filterChoice
 export function addAndSearchFilter() {
 	const allLi = document.querySelectorAll(".list li");
@@ -82,7 +84,7 @@ function searchInIngredient(classList, doNotFilter) {
 			}
 		}
 	}
-
+	updateAllList();
 	const elements = { ingredients };
 	elements[classList] = choices;
 
@@ -133,7 +135,7 @@ function searchInApplianceOrUstensil(classList, doNotFilter, dataSet) {
 			}
 		}
 	}
-
+	updateAllList();
 	const elements = { articles };
 	elements[classList] = choices;
 
@@ -175,12 +177,14 @@ function deleteFilter(event, elements, liInlistOfFilter, classList) {
 	if (choices.length === 0) {
 		if (searchBar.value) {
 			updateRecipes(searchBar.value);
+			updateAllList();
 		} else {
 			const articles = document.querySelectorAll("article");
 			for (let i = 0; i < articles.length; i++) {
 				const article = articles[i];
 				article.classList.toggle("displayNone", false);
 			}
+			updateAllList();
 		}
 	} else {
 		const workflowObject = {
